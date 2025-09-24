@@ -700,6 +700,22 @@
         transform: scale(1.1);
       }
 
+      /* Project image icon styling */
+      .project-image i {
+        font-size: 4rem;
+        color: rgba(255, 255, 255, 0.9);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        transition: all 0.3s ease;
+      }
+
+      .project-card:hover .project-image i {
+        transform: translate(-50%, -50%) scale(1.1);
+        color: rgba(255, 255, 255, 1);
+      }
+
       .project-overlay {
         position: absolute;
         top: 0;
@@ -1478,10 +1494,7 @@
         <div class="projects-grid">
           <div class="project-card">
             <div class="project-image">
-              <img
-                src="https://via.placeholder.com/400x250/667eea/ffffff?text=Pallet+Management+App"
-                alt="Pallet Management Application"
-              />
+              <i class="fas fa-pallet"></i>
               <div class="project-overlay">
                 <div class="project-actions">
                   <a
