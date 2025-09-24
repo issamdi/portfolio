@@ -1,0 +1,2147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Daoudi Issam - Software Developer Portfolio</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+
+    <style>
+      /* CSS Variables for Light/Dark Mode */
+      :root {
+        --bg-color: #ffffff;
+        --text-color: #212529;
+        --secondary-text: #6c757d;
+        --accent-color: #007bff;
+        --card-bg: #f8f9fa;
+        --border-color: #e9ecef;
+        --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        --shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.15);
+        --navbar-bg: rgba(248, 249, 250, 0.95);
+      }
+
+      [data-theme="dark"] {
+        --bg-color: #121212;
+        --text-color: #eaeaea;
+        --secondary-text: #b0b0b0;
+        --accent-color: #007bff;
+        --card-bg: #1a1a1a;
+        --border-color: #333333;
+        --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        --shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.4);
+        --navbar-bg: rgba(26, 26, 26, 0.95);
+      }
+
+      /* Global Styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        line-height: 1.6;
+        transition: all 0.3s ease;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* Navigation */
+      .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: var(--navbar-bg);
+        backdrop-filter: blur(10px);
+        z-index: 1000;
+        padding: 1rem 0;
+        border-bottom: 1px solid var(--border-color);
+        transition: all 0.3s ease;
+      }
+
+      .nav-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--accent-color);
+        text-decoration: none;
+      }
+
+      .nav-links {
+        display: flex;
+        list-style: none;
+        gap: 2rem;
+        align-items: center;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: var(--text-color);
+        font-weight: 500;
+        transition: color 0.3s ease;
+        position: relative;
+      }
+
+      .nav-links a:hover {
+        color: var(--accent-color);
+      }
+
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--accent-color);
+        transition: width 0.3s ease;
+      }
+
+      .nav-links a:hover::after {
+        width: 100%;
+      }
+
+      /* Theme Toggle */
+      .theme-toggle {
+        background: none;
+        border: 2px solid var(--border-color);
+        border-radius: 25px;
+        padding: 8px 12px;
+        cursor: pointer;
+        color: var(--text-color);
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .theme-toggle:hover {
+        border-color: var(--accent-color);
+        color: var(--accent-color);
+      }
+
+      /* Language Toggle */
+      .language-toggle {
+        position: relative;
+        display: inline-block;
+      }
+
+      .language-btn {
+        background: none;
+        border: 2px solid var(--border-color);
+        border-radius: 25px;
+        padding: 8px 12px;
+        cursor: pointer;
+        color: var(--text-color);
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 0.9rem;
+        font-weight: 500;
+      }
+
+      .language-btn:hover {
+        border-color: var(--accent-color);
+        color: var(--accent-color);
+      }
+
+      .language-dropdown {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background: var(--card-bg);
+        border: 2px solid var(--border-color);
+        border-radius: 10px;
+        padding: 10px 0;
+        min-width: 120px;
+        box-shadow: var(--shadow);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        transition: all 0.3s ease;
+        z-index: 1000;
+      }
+
+      .language-dropdown.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+
+      .language-option {
+        display: block;
+        width: 100%;
+        padding: 8px 16px;
+        background: none;
+        border: none;
+        color: var(--text-color);
+        cursor: pointer;
+        text-align: left;
+        transition: all 0.2s ease;
+        font-size: 0.9rem;
+      }
+
+      .language-option:hover {
+        background: var(--accent-color);
+        color: white;
+      }
+
+      .language-option.active {
+        background: var(--accent-color);
+        color: white;
+        font-weight: 600;
+      }
+
+      /* Mobile Menu Toggle */
+      .mobile-toggle {
+        display: none;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        color: var(--text-color);
+        cursor: pointer;
+      }
+
+      /* Hero Section */
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 100px 0 50px;
+      }
+
+      .hero-content {
+        animation: fadeInUp 1s ease;
+        width: 100%;
+        max-width: 1000px;
+      }
+
+      .hero-profile {
+        display: flex;
+        align-items: flex-start;
+        gap: 3rem;
+        text-align: left;
+      }
+
+      .hero-image {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid var(--accent-color);
+        box-shadow: var(--shadow);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        flex-shrink: 0;
+      }
+
+      .hero-image:hover {
+        transform: scale(1.05);
+        box-shadow: var(--shadow-hover);
+      }
+
+      .hero-info {
+        flex: 1;
+        padding-top: 0.5rem;
+      }
+
+      .hero h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        color: var(--text-color);
+      }
+
+      .hero .subtitle {
+        font-size: 1.3rem;
+        color: var(--accent-color);
+        margin-bottom: 1rem;
+        font-weight: 500;
+      }
+
+      .hero .tagline {
+        font-size: 1.1rem;
+        color: var(--secondary-text);
+        margin-bottom: 2rem;
+        line-height: 1.6;
+      }
+
+      .hero-buttons {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        padding: 12px 24px;
+        border-radius: 25px;
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border: 2px solid transparent;
+      }
+
+      .btn-primary {
+        background: var(--accent-gradient);
+        color: white;
+      }
+
+      .btn-primary:hover {
+        background: transparent;
+        border-color: var(--accent-color);
+        color: var(--accent-color);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-hover);
+      }
+
+      .demo-disabled {
+        opacity: 0.6;
+        pointer-events: none;
+        background: var(--secondary-text);
+        position: relative;
+      }
+
+      .demo-disabled::after {
+        content: "Coming Soon";
+        position: absolute;
+        top: -30px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--text-color);
+        color: var(--bg-solid);
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 0.8rem;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        white-space: nowrap;
+      }
+
+      .demo-disabled:hover::after {
+        opacity: 1;
+      }
+
+      .btn-outline {
+        border: 2px solid var(--accent-color);
+        color: var(--accent-color);
+        background: transparent;
+      }
+
+      .btn-outline:hover {
+        background: var(--accent-color);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-hover);
+      }
+
+      /* Section Styles */
+      .section {
+        padding: 80px 0;
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.6s ease;
+      }
+
+      .section.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .section-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 3rem;
+        color: var(--text-color);
+        position: relative;
+      }
+
+      .section-title::after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 4px;
+        background: var(--accent-color);
+        border-radius: 2px;
+      }
+
+      /* About Section */
+      .about-content {
+        max-width: 800px;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      .about-text {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: var(--secondary-text);
+        margin-bottom: 2rem;
+      }
+
+      /* Experience Section */
+      .timeline {
+        max-width: 800px;
+        margin: 0 auto;
+        position: relative;
+      }
+
+      .timeline::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: var(--accent-color);
+      }
+
+      .timeline-item {
+        margin-bottom: 3rem;
+        position: relative;
+      }
+
+      .timeline-item:nth-child(odd) {
+        text-align: right;
+        padding-right: calc(50% + 30px);
+      }
+
+      .timeline-item:nth-child(even) {
+        text-align: left;
+        padding-left: calc(50% + 30px);
+      }
+
+      .timeline-dot {
+        position: absolute;
+        top: 20px;
+        width: 16px;
+        height: 16px;
+        background: var(--accent-color);
+        border-radius: 50%;
+        left: 50%;
+        transform: translateX(-50%);
+        border: 4px solid var(--bg-color);
+        box-shadow: 0 0 0 4px var(--accent-color);
+      }
+
+      .timeline-content {
+        background: var(--card-bg);
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: var(--shadow);
+        transition: all 0.3s ease;
+        text-align: left !important;
+      }
+
+      .timeline-content:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-hover);
+      }
+
+      .job-title {
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: var(--accent-color);
+        margin-bottom: 0.5rem;
+      }
+
+      .company {
+        font-size: 1.1rem;
+        font-weight: 500;
+        color: var(--text-color);
+        margin-bottom: 0.5rem;
+      }
+
+      .duration {
+        color: var(--secondary-text);
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+      }
+
+      .responsibilities {
+        list-style: none;
+        color: var(--secondary-text);
+      }
+
+      .responsibilities li {
+        margin-bottom: 0.5rem;
+        position: relative;
+        padding-left: 20px;
+      }
+
+      .responsibilities li::before {
+        content: "▸";
+        position: absolute;
+        left: 0;
+        color: var(--accent-color);
+        font-weight: bold;
+      }
+
+      /* Skills Section */
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+        gap: 2rem;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 2rem 0;
+      }
+
+      .skill-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+        padding: 1.5rem;
+        border-radius: 15px;
+        background: var(--card-bg);
+        box-shadow: var(--shadow);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      .skill-item.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .skill-item:hover {
+        transform: translateY(-10px) scale(1.05);
+        box-shadow: var(--shadow-hover);
+      }
+
+      .skill-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        transition: all 0.3s ease;
+      }
+
+      .skill-item:hover .skill-icon {
+        transform: scale(1.1);
+      }
+
+      .skill-name {
+        position: absolute;
+        bottom: -40px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--accent-color);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        white-space: nowrap;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        z-index: 10;
+      }
+
+      .skill-item:hover .skill-name {
+        opacity: 1;
+        visibility: visible;
+        bottom: -35px;
+      }
+
+      .skill-name::before {
+        content: "";
+        position: absolute;
+        top: -5px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 0;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-bottom: 5px solid var(--accent-color);
+      }
+
+      /* Skill Colors */
+      .skill-javascript {
+        color: #f7df1e;
+      }
+      .skill-react {
+        color: #61dafb;
+      }
+      .skill-php {
+        color: #777bb4;
+      }
+      .skill-laravel {
+        color: #ff2d20;
+      }
+      .skill-nodejs {
+        color: #339933;
+      }
+      .skill-mysql {
+        color: #4479a1;
+      }
+      .skill-mongodb {
+        color: #47a248;
+      }
+      .skill-docker {
+        color: #2496ed;
+      }
+      .skill-git {
+        color: #f05032;
+      }
+      .skill-html {
+        color: #e34f26;
+      }
+      .skill-css {
+        color: #1572b6;
+      }
+      .skill-bootstrap {
+        color: #7952b3;
+      }
+      .skill-symfony {
+        color: #000000;
+      }
+      .skill-csharp {
+        color: #239120;
+      }
+      .skill-dotnet {
+        color: #512bd4;
+      }
+
+      @media (max-width: 768px) {
+        .skills-grid {
+          grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+          gap: 1.5rem;
+        }
+
+        .skill-item {
+          padding: 1rem;
+        }
+
+        .skill-icon {
+          font-size: 2.5rem;
+        }
+      }
+
+      /* Projects Section */
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2rem;
+      }
+
+      .project-card {
+        background: var(--card-bg);
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        transition: all 0.3s ease;
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      .project-card.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .project-card:hover {
+        transform: translateY(-10px);
+        box-shadow: var(--shadow-hover);
+      }
+
+      .project-image {
+        width: 100%;
+        height: 250px;
+        position: relative;
+        overflow: hidden;
+        background: linear-gradient(135deg, var(--accent-color), #6f42c1);
+      }
+
+      .project-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+      }
+
+      .project-card:hover .project-image img {
+        transform: scale(1.1);
+      }
+
+      .project-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(102, 126, 234, 0.9);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: all 0.3s ease;
+      }
+
+      .project-card:hover .project-overlay {
+        opacity: 1;
+      }
+
+      .project-actions {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .action-btn {
+        width: 50px;
+        height: 50px;
+        background: rgba(255, 255, 255, 0.2);
+        border: 2px solid white;
+        border-radius: 50%;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        font-size: 1.2rem;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+      }
+
+      .action-btn:hover {
+        background: white;
+        color: var(--accent-color);
+        transform: scale(1.1);
+      }
+
+      .project-content {
+        padding: 1.5rem;
+        text-align: left !important;
+      }
+
+      .project-title {
+        font-size: 1.3rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: var(--text-color);
+      }
+
+      .project-description {
+        color: var(--secondary-text);
+        margin-bottom: 1rem;
+        line-height: 1.6;
+      }
+
+      .tech-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .tech-tag {
+        background: var(--accent-color);
+        color: white;
+        padding: 4px 12px;
+        border-radius: 15px;
+        font-size: 0.8rem;
+        font-weight: 500;
+      }
+
+      .project-links {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .project-links .btn {
+        font-size: 0.9rem;
+        padding: 8px 16px;
+      }
+
+      /* Contact Section */
+      .contact {
+        background: var(--card-bg);
+      }
+
+      .contact-content {
+        text-align: center;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      .contact-text {
+        font-size: 1.2rem;
+        color: var(--secondary-text);
+        margin-bottom: 2rem;
+        line-height: 1.8;
+      }
+
+      .contact-email {
+        font-size: 1.3rem;
+        color: var(--accent-color);
+        text-decoration: none;
+        font-weight: 600;
+        margin-bottom: 2rem;
+        display: block;
+        transition: all 0.3s ease;
+      }
+
+      .contact-email:hover {
+        transform: scale(1.05);
+      }
+
+      .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+      }
+
+      .social-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 50px;
+        height: 50px;
+        background: var(--accent-color);
+        color: white;
+        border-radius: 50%;
+        text-decoration: none;
+        font-size: 1.2rem;
+        transition: all 0.3s ease;
+      }
+
+      .social-link:hover {
+        transform: translateY(-3px) scale(1.1);
+        box-shadow: var(--shadow-hover);
+      }
+
+      /* Footer */
+      .footer {
+        background: var(--card-bg);
+        padding: 2rem 0;
+        text-align: center;
+        border-top: 1px solid var(--border-color);
+      }
+
+      .footer p {
+        color: var(--secondary-text);
+      }
+
+      /* Animations */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .mobile-toggle {
+          display: block;
+        }
+
+        .nav-links {
+          position: fixed;
+          top: 100%;
+          left: 0;
+          right: 0;
+          background: var(--navbar-bg);
+          flex-direction: column;
+          padding: 2rem;
+          border-top: 1px solid var(--border-color);
+          transform: translateY(-100%);
+          opacity: 0;
+          visibility: hidden;
+          transition: all 0.3s ease;
+        }
+
+        .nav-links.active {
+          transform: translateY(0);
+          opacity: 1;
+          visibility: visible;
+        }
+
+        .hero h1 {
+          font-size: 2rem;
+        }
+
+        .hero .subtitle {
+          font-size: 1.2rem;
+        }
+
+        .hero .tagline {
+          font-size: 1rem;
+        }
+
+        .hero-profile {
+          flex-direction: column;
+          align-items: center;
+          gap: 2rem;
+          text-align: center;
+        }
+
+        .hero-info {
+          padding-top: 0;
+        }
+
+        .hero-buttons {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .section-title {
+          font-size: 2rem;
+        }
+
+        .timeline::before {
+          left: 20px;
+        }
+
+        .timeline-item {
+          padding-left: 50px !important;
+          padding-right: 0 !important;
+          text-align: left !important;
+        }
+
+        .timeline-dot {
+          left: 20px !important;
+          transform: translateX(-50%);
+        }
+
+        .projects-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .container {
+          padding: 0 15px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .hero-image {
+          width: 100px;
+          height: 100px;
+        }
+
+        .hero h1 {
+          font-size: 1.8rem;
+        }
+
+        .section {
+          padding: 60px 0;
+        }
+      }
+
+      /* Scroll to top button */
+      .scroll-top {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 50px;
+        height: 50px;
+        background: var(--accent-color);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 1.2rem;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        z-index: 1000;
+      }
+
+      .scroll-top.visible {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .scroll-top:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-hover);
+      }
+
+      /* RTL Support for Arabic */
+      [dir="rtl"] .nav-content {
+        flex-direction: row-reverse;
+      }
+
+      [dir="rtl"] .nav-links {
+        flex-direction: row-reverse;
+      }
+
+      [dir="rtl"] .hero-buttons {
+        flex-direction: row-reverse;
+      }
+
+      [dir="rtl"] .hero-profile {
+        flex-direction: row-reverse;
+      }
+
+      [dir="rtl"] .hero-info {
+        text-align: right;
+      }
+
+      [dir="rtl"] .timeline::before {
+        right: 50%;
+        left: auto;
+        transform: translateX(50%);
+      }
+
+      [dir="rtl"] .timeline-dot {
+        right: 50%;
+        left: auto;
+        transform: translateX(50%);
+      }
+
+      [dir="rtl"] .timeline-item:nth-child(odd) {
+        text-align: left;
+        padding-left: calc(50% + 30px);
+        padding-right: 0;
+      }
+
+      [dir="rtl"] .timeline-item:nth-child(even) {
+        text-align: right;
+        padding-right: calc(50% + 30px);
+        padding-left: 0;
+      }
+
+      [dir="rtl"] .language-dropdown {
+        right: auto;
+        left: 0;
+      }
+
+      @media (max-width: 768px) {
+        [dir="rtl"] .timeline-item {
+          padding-right: 50px !important;
+          padding-left: 0 !important;
+          text-align: right !important;
+        }
+
+        [dir="rtl"] .timeline-dot {
+          right: 20px !important;
+          left: auto !important;
+          transform: translateX(50%);
+        }
+
+        [dir="rtl"] .timeline::before {
+          right: 20px;
+          left: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar">
+      <div class="container">
+        <div class="nav-content">
+          <a href="#" class="logo">Daoudi Issam</a>
+          <ul class="nav-links">
+            <li><a href="#about" data-translate="nav.about">About</a></li>
+            <li>
+              <a href="#experience" data-translate="nav.experience"
+                >Experience</a
+              >
+            </li>
+            <li>
+              <a href="#education" data-translate="nav.education">Education</a>
+            </li>
+            <li>
+              <a href="#skills" data-translate="nav.skills">Skills</a>
+            </li>
+            <li>
+              <a href="#projects" data-translate="nav.projects">Projects</a>
+            </li>
+            <li><a href="#contact" data-translate="nav.contact">Contact</a></li>
+            <li>
+              <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon" id="themeIcon"></i>
+              </button>
+            </li>
+            <li>
+              <div class="language-toggle">
+                <button class="language-btn" id="languageBtn">
+                  <i class="fas fa-globe"></i>
+                  <span id="currentLanguage">EN</span>
+                  <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="language-dropdown" id="languageDropdown">
+                  <button class="language-option active" data-lang="en">
+                    English (EN)
+                  </button>
+                  <button class="language-option" data-lang="fr">
+                    Français (FR)
+                  </button>
+                </div>
+              </div>
+            </li>
+          </ul>
+          <button class="mobile-toggle" id="mobileToggle">
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <div class="hero-profile">
+            <img
+              src="Files/k.jpg"
+              alt="Daoudi Issam"
+              class="hero-image"
+              onerror="this.style.display='none'"
+            />
+            <div class="hero-info">
+              <h1>Daoudi Issam</h1>
+              <p class="subtitle" data-translate="hero.title">
+                Software Developer
+              </p>
+              <p class="tagline" data-translate="hero.tagline">
+                Passionate about building innovative and user-friendly web
+                solutions with modern technologies.
+              </p>
+              <div class="hero-buttons">
+                <a
+                  href="Files/DAOUDI Issam Resume a.pdf"
+                  class="btn btn-primary"
+                  id="cvDownloadBtn"
+                  download
+                >
+                  <i class="fas fa-download"></i>
+                  <span data-translate="hero.downloadCV">Download CV</span>
+                </a>
+                <a
+                  href="https://github.com/issamdi"
+                  class="btn btn-outline"
+                  target="_blank"
+                >
+                  <i class="fab fa-github"></i>
+                  GitHub
+                </a>
+                <a
+                  href="https://linkedin.com/in/daoudi-issamm"
+                  class="btn btn-outline"
+                  target="_blank"
+                >
+                  <i class="fab fa-linkedin"></i>
+                  LinkedIn
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+      <div class="container">
+        <h2 class="section-title" data-translate="about.title">About Me</h2>
+        <div class="about-content">
+          <p class="about-text" data-translate="about.text1">
+            Passionate Junior Full-Stack Developer with hands-on experience in
+            building robust web applications. Proficient in back-end
+            (PHP/Laravel) and front-end (React.js) development, gained through a
+            comprehensive internship at Ménara Holding.
+          </p>
+          <p class="about-text" data-translate="about.text2">
+            My technical expertise spans across modern web technologies
+            including PHP, Laravel, React.js, Node.js, Symfony, and database
+            management with MySQL and MongoDB. I have successfully delivered
+            end-to-end solutions, from database architecture and REST API
+            development to responsive user interface creation.
+          </p>
+          <p class="about-text" data-translate="about.text3">
+            A quick and collaborative learner, I'm eager to contribute to
+            innovative projects and continuously advance my technical skills.
+            Whether working on pallet management systems or accounting
+            applications, I bring dedication to clean code, optimal performance,
+            and delivering high-quality software solutions that make a real
+            impact.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="section">
+      <div class="container">
+        <h2 class="section-title" data-translate="experience.title">
+          Experience
+        </h2>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <h3 class="job-title" data-translate="experience.job1.title">
+                Full-Stack Developer Intern
+              </h3>
+              <p class="company" data-translate="experience.job1.company">
+                Ménara Holding, Marrakech
+              </p>
+              <p class="duration" data-translate="experience.job1.duration">
+                May 2025 - July 2025
+              </p>
+              <ul class="responsibilities">
+                <li data-translate="experience.job1.desc1">
+                  Managed the end-to-end development of a pallet management
+                  application
+                </li>
+                <li data-translate="experience.job1.desc2">
+                  Designed the architecture, modeled the database (MySQL), and
+                  developed the REST API with Laravel
+                </li>
+                <li data-translate="experience.job1.desc3">
+                  Created a dynamic and responsive user interface with React.js
+                </li>
+                <li data-translate="experience.job1.desc4">
+                  Participated in the integration, testing, and deployment of
+                  the solution using Docker
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <h3 class="job-title" data-translate="experience.job2.title">
+                Full-Stack Developer (Training Project)
+              </h3>
+              <p class="company" data-translate="experience.job2.company">
+                MIT (Marrakech)
+              </p>
+              <p class="duration" data-translate="experience.job2.duration">
+                January 2020 - June 2020
+              </p>
+              <ul class="responsibilities">
+                <li data-translate="experience.job2.desc1">
+                  Developed an accounting application for financial management
+                </li>
+                <li data-translate="experience.job2.desc2">
+                  Designed and implemented a REST API with Symfony (PHP) to
+                  manage financial transactions
+                </li>
+                <li data-translate="experience.job2.desc3">
+                  Created an interactive user interface with React.js for data
+                  visualization
+                </li>
+                <li data-translate="experience.job2.desc4">
+                  Managed version control with Git/GitHub and the development
+                  environment with Docker
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="section">
+      <div class="container">
+        <h2 class="section-title" data-translate="education.title">
+          Education
+        </h2>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <h3 class="degree-title" data-translate="education.degree1.title">
+                Bachelor's Degree in Computer Science
+              </h3>
+              <p
+                class="institution"
+                data-translate="education.degree1.institution"
+              >
+                UPM, Private University of Marrakech
+              </p>
+              <p class="duration" data-translate="education.degree1.duration">
+                2025
+              </p>
+              <ul class="achievements">
+                <li data-translate="education.degree1.desc1">
+                  Comprehensive curriculum in software development and computer
+                  science fundamentals
+                </li>
+                <li data-translate="education.degree1.desc2">
+                  Specialized in modern web technologies and full-stack
+                  development
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <h3 class="degree-title" data-translate="education.degree2.title">
+                Bachelor's Degree in English Studies
+              </h3>
+              <p
+                class="institution"
+                data-translate="education.degree2.institution"
+              >
+                Cadi Ayyad University, Marrakech
+              </p>
+              <p class="duration" data-translate="education.degree2.duration">
+                2025
+              </p>
+              <ul class="achievements">
+                <li data-translate="education.degree2.desc1">
+                  Advanced proficiency in English language and literature
+                </li>
+                <li data-translate="education.degree2.desc2">
+                  Enhanced communication and analytical skills
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <h3 class="degree-title" data-translate="education.degree3.title">
+                Specialized Technician Diploma in Software Development
+              </h3>
+              <p
+                class="institution"
+                data-translate="education.degree3.institution"
+              >
+                ISTA NTIC SYBA, Marrakech
+              </p>
+              <p class="duration" data-translate="education.degree3.duration">
+                2023
+              </p>
+              <ul class="achievements">
+                <li data-translate="education.degree3.desc1">
+                  Focused on practical software development skills
+                </li>
+                <li data-translate="education.degree3.desc2">
+                  Hands-on experience with modern development frameworks
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <h3 class="degree-title" data-translate="education.degree4.title">
+                Baccalaureate in Letters and Human Sciences
+              </h3>
+              <p class="duration" data-translate="education.degree4.duration">
+                2020
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <h3 class="degree-title" data-translate="education.degree5.title">
+                Baccalaureate in Physical Sciences
+              </h3>
+              <p
+                class="institution"
+                data-translate="education.degree5.institution"
+              >
+                Rahali El Farouk High School
+              </p>
+              <p class="duration" data-translate="education.degree5.duration">
+                2018
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section">
+      <div class="container">
+        <h2 class="section-title" data-translate="skills.title">Skills</h2>
+        <div class="skills-grid">
+          <!-- Core Programming Languages -->
+          <div class="skill-item">
+            <i class="fab fa-java skill-icon skill-java"></i>
+            <span class="skill-name">Java</span>
+          </div>
+          <div class="skill-item">
+            <i class="fab fa-js-square skill-icon skill-javascript"></i>
+            <span class="skill-name">JavaScript</span>
+          </div>
+          <div class="skill-item">
+            <i class="fab fa-php skill-icon skill-php"></i>
+            <span class="skill-name">PHP</span>
+          </div>
+
+          <!-- Frontend Technologies -->
+          <div class="skill-item">
+            <i class="fab fa-html5 skill-icon skill-html"></i>
+            <span class="skill-name">HTML5</span>
+          </div>
+          <div class="skill-item">
+            <i class="fab fa-css3-alt skill-icon skill-css"></i>
+            <span class="skill-name">CSS3</span>
+          </div>
+          <div class="skill-item">
+            <i class="fab fa-react skill-icon skill-react"></i>
+            <span class="skill-name">React.js</span>
+          </div>
+          <div class="skill-item">
+            <i class="fab fa-bootstrap skill-icon skill-bootstrap"></i>
+            <span class="skill-name">Bootstrap</span>
+          </div>
+
+          <!-- Backend Frameworks -->
+          <div class="skill-item">
+            <i class="fab fa-laravel skill-icon skill-laravel"></i>
+            <span class="skill-name">Laravel</span>
+          </div>
+          <div class="skill-item">
+            <i class="fab fa-node-js skill-icon skill-nodejs"></i>
+            <span class="skill-name">Node.js</span>
+          </div>
+          <div class="skill-item">
+            <i class="fab fa-symfony skill-icon skill-symfony"></i>
+            <span class="skill-name">Symfony</span>
+          </div>
+
+          <!-- Databases -->
+          <div class="skill-item">
+            <i class="fas fa-database skill-icon skill-mysql"></i>
+            <span class="skill-name">MySQL</span>
+          </div>
+          <div class="skill-item">
+            <i class="fas fa-leaf skill-icon skill-mongodb"></i>
+            <span class="skill-name">MongoDB</span>
+          </div>
+
+          <!-- DevOps & Tools -->
+          <div class="skill-item">
+            <i class="fab fa-docker skill-icon skill-docker"></i>
+            <span class="skill-name">Docker</span>
+          </div>
+          <div class="skill-item">
+            <i class="fab fa-git-alt skill-icon skill-git"></i>
+            <span class="skill-name">Git</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section">
+      <div class="container">
+        <h2 class="section-title" data-translate="projects.title">Projects</h2>
+        <div class="projects-grid">
+          <div class="project-card">
+            <div class="project-image">
+              <img
+                src="https://via.placeholder.com/400x250/667eea/ffffff?text=Pallet+Management+App"
+                alt="Pallet Management Application"
+              />
+              <div class="project-overlay">
+                <div class="project-actions">
+                  <a
+                    href="#"
+                    class="action-btn demo-btn"
+                    title="Demo coming soon"
+                  >
+                    <i class="fas fa-eye"></i>
+                  </a>
+                  <a
+                    href="#"
+                    class="action-btn details-btn"
+                    onclick="openProjectModal('project1')"
+                  >
+                    <i class="fas fa-info-circle"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="project-content">
+              <h3
+                class="project-title"
+                data-translate="projects.project1.title"
+              >
+                Pallet Management Application
+              </h3>
+              <p
+                class="project-description"
+                data-translate="projects.project1.desc"
+              >
+                A comprehensive web application developed during my internship
+                at Ménara Holding. Features complete pallet lifecycle
+                management, inventory tracking, and reporting dashboard with
+                role-based authentication.
+              </p>
+              <div class="tech-tags">
+                <span class="tech-tag">Laravel</span>
+                <span class="tech-tag">React.js</span>
+                <span class="tech-tag">MySQL</span>
+                <span class="tech-tag">Docker</span>
+              </div>
+              <div class="project-links">
+                <a
+                  href="#"
+                  class="btn btn-primary demo-disabled"
+                  title="Demo deployment in progress"
+                >
+                  <i class="fas fa-external-link-alt"></i>
+                  Live Demo
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div class="project-image">
+              <i class="fas fa-calculator"></i>
+            </div>
+            <div class="project-content">
+              <h3
+                class="project-title"
+                data-translate="projects.project2.title"
+              >
+                Accounting Application
+              </h3>
+              <p
+                class="project-description"
+                data-translate="projects.project2.desc"
+              >
+                A robust financial management system built during my training at
+                MIT. Features transaction management, financial reporting, data
+                visualization, and secure API endpoints for financial
+                operations.
+              </p>
+              <div class="tech-tags">
+                <span class="tech-tag">Symfony</span>
+                <span class="tech-tag">React.js</span>
+                <span class="tech-tag">PHP</span>
+                <span class="tech-tag">REST API</span>
+              </div>
+              <div class="project-links">
+                <a
+                  href="#"
+                  class="btn btn-primary demo-disabled"
+                  title="Demo deployment in progress"
+                >
+                  <i class="fas fa-external-link-alt"></i>
+                  Live Demo
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div class="project-image">
+              <i class="fas fa-utensils"></i>
+            </div>
+            <div class="project-content">
+              <h3
+                class="project-title"
+                data-translate="projects.project3.title"
+              >
+                Online Food Ordering System
+              </h3>
+              <p
+                class="project-description"
+                data-translate="projects.project3.desc"
+              >
+                A complete e-commerce platform for food delivery with user
+                authentication, menu management, shopping cart, order tracking,
+                and payment integration. Features admin panel for restaurant
+                management.
+              </p>
+              <div class="tech-tags">
+                <span class="tech-tag">JavaScript</span>
+                <span class="tech-tag">PHP</span>
+                <span class="tech-tag">MySQL</span>
+                <span class="tech-tag">HTML5</span>
+              </div>
+              <div class="project-links">
+                <a
+                  href="#"
+                  class="btn btn-primary demo-disabled"
+                  title="Demo deployment in progress"
+                >
+                  <i class="fas fa-external-link-alt"></i>
+                  Live Demo
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div class="project-image">
+              <i class="fas fa-laptop-code"></i>
+            </div>
+            <div class="project-content">
+              <h3
+                class="project-title"
+                data-translate="projects.project4.title"
+              >
+                Portfolio Website
+              </h3>
+              <p
+                class="project-description"
+                data-translate="projects.project4.desc"
+              >
+                A modern, responsive portfolio website with dark/light mode
+                toggle, smooth animations, and optimized performance. Built to
+                showcase projects and professional experience.
+              </p>
+              <div class="tech-tags">
+                <span class="tech-tag">HTML5</span>
+                <span class="tech-tag">CSS3</span>
+                <span class="tech-tag">JavaScript</span>
+                <span class="tech-tag">Responsive</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section contact">
+      <div class="container">
+        <h2 class="section-title" data-translate="contact.title">
+          Let's Work Together
+        </h2>
+        <div class="contact-content">
+          <p class="contact-text" data-translate="contact.text">
+            I'm always interested in new opportunities and exciting projects.
+            Whether you're looking for a developer to join your team or you have
+            a project in mind, I'd love to hear from you!
+          </p>
+          <a href="mailto:daoudi.issamm@gmail.com" class="contact-email"
+            >daoudi.issamm@gmail.com</a
+          >
+          <div class="social-links">
+            <a
+              href="https://github.com/daoudi-issam"
+              class="social-link"
+              target="_blank"
+            >
+              <i class="fab fa-github"></i>
+            </a>
+            <a
+              href="https://linkedin.com/in/daoudi-issam"
+              class="social-link"
+              target="_blank"
+            >
+              <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="mailto:daoudi.issamm@gmail.com" class="social-link">
+              <i class="fas fa-envelope"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <p>&copy; 2025 Daoudi Issam. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top" id="scrollTop">
+      <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+      // Translation data
+      const translations = {
+        en: {
+          "nav.about": "About",
+          "nav.experience": "Experience",
+          "nav.education": "Education",
+          "nav.skills": "Skills",
+          "nav.projects": "Projects",
+          "nav.contact": "Contact",
+          "hero.title": "Full-Stack Developer",
+          "hero.tagline":
+            "Passionate Junior Full-Stack Developer with hands-on experience in building robust web applications. Proficient in back-end (PHP/Laravel) and front-end (React.js) development.",
+          "hero.downloadCV": "Download CV",
+          "about.title": "About Me",
+          "about.text1":
+            "Passionate Junior Full-Stack Developer with hands-on experience in building robust web applications. Proficient in back-end (PHP/Laravel) and front-end (React.js) development, gained through a comprehensive internship at Ménara Holding.",
+          "about.text2":
+            "My technical expertise spans across modern web technologies including PHP, Laravel, React.js, Node.js, Symfony, and database management with MySQL and MongoDB. I have successfully delivered end-to-end solutions, from database architecture and REST API development to responsive user interface creation.",
+          "about.text3":
+            "A quick and collaborative learner, I'm eager to contribute to innovative projects and continuously advance my technical skills. Whether working on pallet management systems or accounting applications, I bring dedication to clean code, optimal performance, and delivering high-quality software solutions that make a real impact.",
+          "experience.title": "Experience",
+          "experience.job1.title": "Full-Stack Developer Intern",
+          "experience.job1.company": "Ménara Holding, Marrakech",
+          "experience.job1.duration": "May 2025 - July 2025",
+          "experience.job1.desc1":
+            "Managed the end-to-end development of a pallet management application",
+          "experience.job1.desc2":
+            "Designed the architecture, modeled the database (MySQL), and developed the REST API with Laravel",
+          "experience.job1.desc3":
+            "Created a dynamic and responsive user interface with React.js",
+          "experience.job1.desc4":
+            "Participated in the integration, testing, and deployment of the solution using Docker",
+          "experience.job2.title": "Full-Stack Developer (Training Project)",
+          "experience.job2.company": "MIT (Marrakech)",
+          "experience.job2.duration": "January 2020 - June 2020",
+          "experience.job2.desc1":
+            "Developed an accounting application for financial management",
+          "experience.job2.desc2":
+            "Designed and implemented a REST API with Symfony (PHP) to manage financial transactions",
+          "experience.job2.desc3":
+            "Created an interactive user interface with React.js for data visualization",
+          "experience.job2.desc4":
+            "Managed version control with Git/GitHub and the development environment with Docker",
+          "education.title": "Education",
+          "skills.title": "Skills",
+          "education.degree1.title": "Bachelor's Degree in Computer Science",
+          "education.degree1.institution":
+            "UPM, Private University of Marrakech",
+          "education.degree1.duration": "2025",
+          "education.degree1.desc1":
+            "Comprehensive curriculum in software development and computer science fundamentals",
+          "education.degree1.desc2":
+            "Specialized in modern web technologies and full-stack development",
+          "education.degree2.title": "Bachelor's Degree in English Studies",
+          "education.degree2.institution": "Cadi Ayyad University, Marrakech",
+          "education.degree2.duration": "2025",
+          "education.degree2.desc1":
+            "Advanced proficiency in English language and literature",
+          "education.degree2.desc2":
+            "Enhanced communication and analytical skills",
+          "education.degree3.title":
+            "Specialized Technician Diploma in Software Development",
+          "education.degree3.institution": "ISTA NTIC SYBA, Marrakech",
+          "education.degree3.duration": "2023",
+          "education.degree3.desc1":
+            "Focused on practical software development skills",
+          "education.degree3.desc2":
+            "Hands-on experience with modern development frameworks",
+          "education.degree4.title":
+            "Baccalaureate in Letters and Human Sciences",
+          "education.degree4.duration": "2020",
+          "education.degree5.title": "Baccalaureate in Physical Sciences",
+          "education.degree5.institution": "Rahali El Farouk High School",
+          "education.degree5.duration": "2018",
+          "projects.title": "Projects",
+          "projects.project1.title": "Pallet Management Application",
+          "projects.project1.desc":
+            "A comprehensive web application developed during my internship at Ménara Holding. Features complete pallet lifecycle management, inventory tracking, and reporting dashboard with role-based authentication.",
+          "projects.project2.title": "Accounting Application",
+          "projects.project2.desc":
+            "A robust financial management system built during my training at MIT. Features transaction management, financial reporting, data visualization, and secure API endpoints for financial operations.",
+          "projects.project3.title": "Online Food Ordering System",
+          "projects.project3.desc":
+            "A complete e-commerce platform for food delivery with user authentication, menu management, shopping cart, order tracking, and payment integration. Features admin panel for restaurant management.",
+          "projects.project4.title": "Portfolio Website",
+          "projects.project4.desc":
+            "A modern, responsive portfolio website with dark/light mode toggle, smooth animations, and optimized performance. Built to showcase projects and professional experience.",
+          "contact.title": "Let's Work Together",
+          "contact.text":
+            "I'm always interested in new opportunities and exciting projects. Whether you're looking for a developer to join your team or you have a project in mind, I'd love to hear from you!",
+        },
+        fr: {
+          "nav.about": "À Propos",
+          "nav.experience": "Expérience",
+          "nav.education": "Éducation",
+          "nav.skills": "Compétences",
+          "nav.projects": "Projets",
+          "nav.contact": "Contact",
+          "hero.title": "Développeur Full-Stack",
+          "hero.tagline":
+            "Développeur Full-Stack Junior passionné avec une expérience pratique dans la création d'applications web robustes. Compétent en développement back-end (PHP/Laravel) et front-end (React.js).",
+          "hero.downloadCV": "Télécharger CV",
+          "about.title": "À Propos de Moi",
+          "about.text1":
+            "Développeur Full-Stack Junior passionné avec une expérience pratique dans la création d'applications web robustes. Compétent en développement back-end (PHP/Laravel) et front-end (React.js), acquise grâce à un stage complet chez Ménara Holding.",
+          "about.text2":
+            "Mon expertise technique s'étend aux technologies web modernes incluant PHP, Laravel, React.js, Node.js, Symfony, et la gestion de bases de données avec MySQL et MongoDB. J'ai livré avec succès des solutions complètes, de l'architecture de base de données et développement d'API REST à la création d'interfaces utilisateur responsives.",
+          "about.text3":
+            "Apprenant rapide et collaboratif, je suis désireux de contribuer à des projets innovants et d'améliorer continuellement mes compétences techniques. Que ce soit sur des systèmes de gestion de palettes ou des applications comptables, j'apporte ma dévotion au code propre, aux performances optimales, et à la livraison de solutions logicielles de haute qualité qui ont un impact réel.",
+          "experience.title": "Expérience",
+          "experience.job1.title": "Stagiaire Développeur Full-Stack",
+          "experience.job1.company": "Ménara Holding, Marrakech",
+          "experience.job1.duration": "Mai 2025 - Juillet 2025",
+          "experience.job1.desc1":
+            "Gestion du développement complet d'une application de gestion de palettes",
+          "experience.job1.desc2":
+            "Conception de l'architecture, modélisation de la base de données (MySQL), et développement de l'API REST avec Laravel",
+          "experience.job1.desc3":
+            "Création d'une interface utilisateur dynamique et responsive avec React.js",
+          "experience.job1.desc4":
+            "Participation à l'intégration, aux tests, et au déploiement de la solution avec Docker",
+          "experience.job2.title":
+            "Développeur Full-Stack (Projet de Formation)",
+          "experience.job2.company": "MIT (Marrakech)",
+          "experience.job2.duration": "Janvier 2020 - Juin 2020",
+          "experience.job2.desc1":
+            "Développement d'une application comptable pour la gestion financière",
+          "experience.job2.desc2":
+            "Conception et implémentation d'une API REST avec Symfony (PHP) pour gérer les transactions financières",
+          "experience.job2.desc3":
+            "Création d'une interface utilisateur interactive avec React.js pour la visualisation des données",
+          "experience.job2.desc4":
+            "Gestion du contrôle de version avec Git/GitHub et de l'environnement de développement avec Docker",
+          "education.title": "Éducation",
+          "skills.title": "Compétences",
+          "education.degree1.title": "Licence en Informatique",
+          "education.degree1.institution":
+            "UPM, Université Privée de Marrakech",
+          "education.degree1.duration": "2025",
+          "education.degree1.desc1":
+            "Cursus complet en développement logiciel et fondamentaux de l'informatique",
+          "education.degree1.desc2":
+            "Spécialisé dans les technologies web modernes et le développement full-stack",
+          "education.degree2.title": "Licence en Études Anglaises",
+          "education.degree2.institution": "Université Cadi Ayyad, Marrakech",
+          "education.degree2.duration": "2025",
+          "education.degree2.desc1":
+            "Maîtrise avancée de la langue et littérature anglaise",
+          "education.degree2.desc2":
+            "Amélioration des compétences de communication et d'analyse",
+          "education.degree3.title":
+            "Diplôme de Technicien Spécialisé en Développement Logiciel",
+          "education.degree3.institution": "ISTA NTIC SYBA, Marrakech",
+          "education.degree3.duration": "2023",
+          "education.degree3.desc1":
+            "Concentration sur les compétences pratiques de développement logiciel",
+          "education.degree3.desc2":
+            "Expérience pratique avec les frameworks de développement modernes",
+          "education.degree4.title":
+            "Baccalauréat en Lettres et Sciences Humaines",
+          "education.degree4.duration": "2020",
+          "education.degree5.title": "Baccalauréat en Sciences Physiques",
+          "education.degree5.institution": "Lycée Rahali El Farouk",
+          "education.degree5.duration": "2018",
+          "projects.title": "Projets",
+          "projects.project1.title": "Application de Gestion de Palettes",
+          "projects.project1.desc":
+            "Une application web complète développée pendant mon stage chez Ménara Holding. Comprend la gestion complète du cycle de vie des palettes, le suivi d'inventaire, et un tableau de bord de reporting avec authentification basée sur les rôles.",
+          "projects.project2.title": "Application Comptable",
+          "projects.project2.desc":
+            "Un système de gestion financière robuste construit pendant ma formation au MIT. Comprend la gestion des transactions, le reporting financier, la visualisation des données, et des points de terminaison API sécurisés pour les opérations financières.",
+          "projects.project3.title":
+            "Système de Commande de Nourriture en Ligne",
+          "projects.project3.desc":
+            "Une plateforme e-commerce complète pour la livraison de nourriture avec authentification utilisateur, gestion de menu, panier d'achat, suivi de commandes, et intégration de paiement. Comprend un panneau d'administration pour la gestion de restaurant.",
+          "projects.project4.title": "Site Web Portfolio",
+          "projects.project4.desc":
+            "Un site web portfolio moderne et responsive avec basculement mode sombre/clair, animations fluides, et performance optimisée. Construit pour présenter les projets et l'expérience professionnelle.",
+          "contact.title": "Travaillons Ensemble",
+          "contact.text":
+            "Je suis toujours intéressé par de nouvelles opportunités et des projets passionnants. Que vous cherchiez un développeur pour rejoindre votre équipe ou que vous ayez un projet en tête, j'aimerais avoir de vos nouvelles!",
+        },
+      };
+
+      // Language Toggle Functionality
+      const languageBtn = document.getElementById("languageBtn");
+      const languageDropdown = document.getElementById("languageDropdown");
+      const currentLanguageSpan = document.getElementById("currentLanguage");
+      const languageOptions = document.querySelectorAll(".language-option");
+
+      // Get saved language or default to English
+      let currentLang = localStorage.getItem("language") || "en";
+
+      // Initialize language
+      function initializeLanguage() {
+        updateLanguageDisplay();
+        translatePage(currentLang);
+
+        // Update active language option
+        languageOptions.forEach((option) => {
+          option.classList.remove("active");
+          if (option.dataset.lang === currentLang) {
+            option.classList.add("active");
+          }
+        });
+      }
+
+      // Update language display in button
+      function updateLanguageDisplay() {
+        const langMap = { en: "EN", fr: "FR" };
+        currentLanguageSpan.textContent = langMap[currentLang];
+
+        // Update page direction and language
+        document.documentElement.setAttribute("dir", "ltr");
+        document.documentElement.setAttribute("lang", currentLang);
+      }
+
+      // Translate page content
+      function translatePage(lang) {
+        const elements = document.querySelectorAll("[data-translate]");
+        elements.forEach((element) => {
+          const key = element.getAttribute("data-translate");
+          if (translations[lang] && translations[lang][key]) {
+            element.textContent = translations[lang][key];
+          }
+        });
+
+        // Update CV download link based on language
+        updateCVDownload(lang);
+      }
+
+      // Update CV download link based on selected language
+      function updateCVDownload(lang) {
+        const cvDownloadBtn = document.getElementById("cvDownloadBtn");
+        if (cvDownloadBtn) {
+          switch (lang) {
+            case "fr":
+              cvDownloadBtn.href = "Files/DAOUDI Issam CV.pdf";
+              console.log("CV language set to French: DAOUDI Issam CV.pdf");
+              break;
+            case "en":
+            case "ar":
+            default:
+              cvDownloadBtn.href = "Files/DAOUDI Issam Resume a.pdf";
+              console.log(
+                "CV language set to English: DAOUDI Issam Resume a.pdf"
+              );
+              break;
+          }
+        }
+      }
+
+      // Language dropdown toggle
+      languageBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        languageDropdown.classList.toggle("active");
+      });
+
+      // Close dropdown when clicking outside
+      document.addEventListener("click", () => {
+        languageDropdown.classList.remove("active");
+      });
+
+      // Language option selection
+      languageOptions.forEach((option) => {
+        option.addEventListener("click", (e) => {
+          e.stopPropagation();
+          currentLang = option.dataset.lang;
+          localStorage.setItem("language", currentLang);
+
+          // Update active state
+          languageOptions.forEach((opt) => opt.classList.remove("active"));
+          option.classList.add("active");
+
+          // Update display and translate
+          updateLanguageDisplay();
+          translatePage(currentLang);
+
+          // Close dropdown
+          languageDropdown.classList.remove("active");
+        });
+      });
+
+      // Initialize language on page load
+      initializeLanguage();
+
+      // Theme Toggle Functionality
+      const themeToggle = document.getElementById("themeToggle");
+      const themeIcon = document.getElementById("themeIcon");
+      const body = document.body;
+
+      // Check for saved theme preference or default to light mode
+      const currentTheme = localStorage.getItem("theme") || "light";
+      body.setAttribute("data-theme", currentTheme);
+
+      // Update icon based on current theme
+      function updateThemeIcon(theme) {
+        if (theme === "dark") {
+          themeIcon.className = "fas fa-sun";
+        } else {
+          themeIcon.className = "fas fa-moon";
+        }
+      }
+
+      // Initialize icon
+      updateThemeIcon(currentTheme);
+
+      // Theme toggle event listener
+      themeToggle.addEventListener("click", () => {
+        const currentTheme = body.getAttribute("data-theme");
+        const newTheme = currentTheme === "dark" ? "light" : "dark";
+
+        body.setAttribute("data-theme", newTheme);
+        localStorage.setItem("theme", newTheme);
+        updateThemeIcon(newTheme);
+      });
+
+      // Mobile Menu Toggle
+      const mobileToggle = document.getElementById("mobileToggle");
+      const navLinks = document.querySelector(".nav-links");
+
+      mobileToggle.addEventListener("click", () => {
+        navLinks.classList.toggle("active");
+      });
+
+      // Close mobile menu when clicking on a link
+      navLinks.addEventListener("click", (e) => {
+        if (e.target.tagName === "A") {
+          navLinks.classList.remove("active");
+        }
+      });
+
+      // Smooth Scrolling for Navigation Links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            const offsetTop = target.offsetTop - 80; // Account for fixed navbar
+            window.scrollTo({
+              top: offsetTop,
+              behavior: "smooth",
+            });
+          }
+        });
+      });
+
+      // Scroll Animations
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      }, observerOptions);
+
+      // Observe all sections and project cards
+      document.querySelectorAll(".section, .project-card").forEach((el) => {
+        observer.observe(el);
+      });
+
+      // Observe skill items for animation
+      document.querySelectorAll(".skill-item").forEach((el) => {
+        observer.observe(el);
+      });
+
+      // Scroll to Top Button
+      const scrollTopBtn = document.getElementById("scrollTop");
+
+      window.addEventListener("scroll", () => {
+        if (window.pageYOffset > 300) {
+          scrollTopBtn.classList.add("visible");
+        } else {
+          scrollTopBtn.classList.remove("visible");
+        }
+      });
+
+      scrollTopBtn.addEventListener("click", () => {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      });
+
+      // Navbar background on scroll
+      window.addEventListener("scroll", () => {
+        const navbar = document.querySelector(".navbar");
+        if (window.scrollY > 50) {
+          navbar.style.background = "var(--navbar-bg)";
+          navbar.style.boxShadow = "var(--shadow)";
+        } else {
+          navbar.style.background = "var(--navbar-bg)";
+          navbar.style.boxShadow = "none";
+        }
+      });
+
+      // Staggered Animation for Project Cards
+      const projectCards = document.querySelectorAll(".project-card");
+      const projectObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              entry.target.classList.add("visible");
+            }, index * 200); // Stagger animation by 200ms
+          }
+        });
+      }, observerOptions);
+
+      projectCards.forEach((card) => {
+        projectObserver.observe(card);
+      });
+
+      // Add loading animation
+      window.addEventListener("load", () => {
+        document.body.classList.add("loaded");
+      });
+
+      // Typing effect for hero tagline (optional enhancement)
+      function typeWriter(element, text, speed = 50) {
+        let i = 0;
+        element.innerHTML = "";
+
+        function type() {
+          if (i < text.length) {
+            element.innerHTML += text.charAt(i);
+            i++;
+            setTimeout(type, speed);
+          }
+        }
+
+        type();
+      }
+
+      // Initialize typing effect for tagline
+      window.addEventListener("load", () => {
+        const tagline = document.querySelector(".hero .tagline");
+        const originalText = tagline.textContent;
+        if (originalText && !originalText.includes("[")) {
+          typeWriter(tagline, originalText, 30);
+        }
+      });
+    </script>
+  </body>
+</html>
