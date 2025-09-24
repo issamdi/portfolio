@@ -288,8 +288,21 @@
       .hero .tagline {
         font-size: 1.1rem;
         color: var(--secondary-text);
-        margin-bottom: 2rem;
+        margin-bottom: 1.5rem;
         line-height: 1.6;
+      }
+
+      .hero-about {
+        font-size: 0.95rem;
+        color: var(--secondary-text);
+        margin-bottom: 2rem;
+        line-height: 1.5;
+        opacity: 0.9;
+        max-width: 500px;
+      }
+
+      .hero-about p {
+        margin: 0;
       }
 
       .hero-buttons {
@@ -629,6 +642,13 @@
       }
 
       .job-title {
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: var(--accent-color);
+        margin-bottom: 0.5rem;
+      }
+
+      .degree-title {
         font-size: 1.3rem;
         font-weight: 600;
         color: var(--accent-color);
@@ -980,13 +1000,26 @@
         line-height: 1.8;
       }
 
+      .contact-email-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 2rem;
+        gap: 0.5rem;
+      }
+
+      .contact-label {
+        font-size: 1.1rem;
+        color: var(--text-color);
+        font-weight: 600;
+        opacity: 0.8;
+      }
+
       .contact-email {
         font-size: 1.3rem;
         color: var(--accent-color);
         text-decoration: none;
         font-weight: 600;
-        margin-bottom: 2rem;
-        display: block;
         transition: all 0.3s ease;
       }
 
@@ -1247,7 +1280,9 @@
         <div class="nav-content">
           <a href="#" class="logo">Daoudi Issam</a>
           <ul class="nav-links">
-            <li><a href="#about" data-translate="nav.about">About</a></li>
+            <li>
+              <a href="#projects" data-translate="nav.projects">Projects</a>
+            </li>
             <li>
               <a href="#experience" data-translate="nav.experience"
                 >Experience</a
@@ -1259,9 +1294,6 @@
             <li>
               <a href="#skills" data-translate="nav.skills">Skills</a>
             </li>
-            <li>
-              <a href="#projects" data-translate="nav.projects">Projects</a>
-            </li>
             <li><a href="#contact" data-translate="nav.contact">Contact</a></li>
             <li>
               <button class="theme-toggle" id="themeToggle">
@@ -1272,14 +1304,14 @@
               <div class="language-toggle">
                 <button class="language-btn" id="languageBtn">
                   <i class="fas fa-globe"></i>
-                  <span id="currentLanguage">EN</span>
+                  <span id="currentLanguage">FR</span>
                   <i class="fas fa-chevron-down"></i>
                 </button>
                 <div class="language-dropdown" id="languageDropdown">
-                  <button class="language-option active" data-lang="en">
+                  <button class="language-option" data-lang="en">
                     English (EN)
                   </button>
-                  <button class="language-option" data-lang="fr">
+                  <button class="language-option active" data-lang="fr">
                     Français (FR)
                   </button>
                 </div>
@@ -1307,21 +1339,30 @@
             <div class="hero-info">
               <h1>Daoudi Issam</h1>
               <p class="subtitle" data-translate="hero.title">
-                Software Developer
+                Full-Stack Developer
               </p>
               <p class="tagline" data-translate="hero.tagline">
-                Passionate about building innovative and user-friendly web
-                solutions with modern technologies.
+                Passionate Junior Full-Stack Developer with hands-on experience
+                building robust web applications. Proficient in React.js,
+                PHP/Laravel, and modern development practices.
               </p>
+              <div class="hero-about" data-translate="hero.about">
+                <p>
+                  Quick learner and collaborative team player, eager to
+                  contribute to innovative projects. Experienced in end-to-end
+                  development from database design to responsive UI creation.
+                </p>
+              </div>
               <div class="hero-buttons">
                 <a
                   href="Files/DAOUDI Issam Resume a.pdf"
                   class="btn btn-demo"
                   id="cvDownloadBtn"
-                  download
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <i class="fas fa-file-download"></i>
-                  <span data-translate="hero.downloadCV">Download CV</span>
+                  <span data-translate="hero.downloadCV">My CV</span>
                 </a>
                 <a
                   href="https://github.com/issamdi"
@@ -1354,9 +1395,9 @@
             >Tech Stack:</span
           >
           <div class="skills-row">
-            <div class="skill-compact" title="Java">
-              <i class="fab fa-java"></i>
-              <span>Java</span>
+            <div class="skill-compact" title="React.js">
+              <i class="fab fa-react"></i>
+              <span>React.js</span>
             </div>
             <div class="skill-compact" title="JavaScript">
               <i class="fab fa-js-square"></i>
@@ -1370,13 +1411,13 @@
               <i class="fab fa-laravel"></i>
               <span>Laravel</span>
             </div>
-            <div class="skill-compact" title="React.js">
-              <i class="fab fa-react"></i>
-              <span>React.js</span>
-            </div>
             <div class="skill-compact" title="Node.js">
               <i class="fab fa-node-js"></i>
               <span>Node.js</span>
+            </div>
+            <div class="skill-compact" title="Java">
+              <i class="fab fa-java"></i>
+              <span>Java</span>
             </div>
             <div class="skill-compact" title="MySQL">
               <i class="fas fa-database"></i>
@@ -1559,36 +1600,6 @@
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="section">
-      <div class="container">
-        <h2 class="section-title" data-translate="about.title">About Me</h2>
-        <div class="about-content">
-          <p class="about-text" data-translate="about.text1">
-            Passionate Junior Full-Stack Developer with hands-on experience in
-            building robust web applications. Proficient in back-end
-            (PHP/Laravel) and front-end (React.js) development, gained through a
-            comprehensive internship at Ménara Holding.
-          </p>
-          <p class="about-text" data-translate="about.text2">
-            My technical expertise spans across modern web technologies
-            including PHP, Laravel, React.js, Node.js, Symfony, and database
-            management with MySQL and MongoDB. I have successfully delivered
-            end-to-end solutions, from database architecture and REST API
-            development to responsive user interface creation.
-          </p>
-          <p class="about-text" data-translate="about.text3">
-            A quick and collaborative learner, I'm eager to contribute to
-            innovative projects and continuously advance my technical skills.
-            Whether working on pallet management systems or accounting
-            applications, I bring dedication to clean code, optimal performance,
-            and delivering high-quality software solutions that make a real
-            impact.
-          </p>
         </div>
       </div>
     </section>
@@ -1792,10 +1803,10 @@
       <div class="container">
         <h2 class="section-title" data-translate="skills.title">Skills</h2>
         <div class="skills-grid">
-          <!-- Core Programming Languages -->
+          <!-- Primary Technologies -->
           <div class="skill-item">
-            <i class="fab fa-java skill-icon skill-java"></i>
-            <span class="skill-name">Java</span>
+            <i class="fab fa-react skill-icon skill-react"></i>
+            <span class="skill-name">React.js</span>
           </div>
           <div class="skill-item">
             <i class="fab fa-js-square skill-icon skill-javascript"></i>
@@ -1804,6 +1815,10 @@
           <div class="skill-item">
             <i class="fab fa-php skill-icon skill-php"></i>
             <span class="skill-name">PHP</span>
+          </div>
+          <div class="skill-item">
+            <i class="fab fa-laravel skill-icon skill-laravel"></i>
+            <span class="skill-name">Laravel</span>
           </div>
 
           <!-- Frontend Technologies -->
@@ -1816,19 +1831,11 @@
             <span class="skill-name">CSS3</span>
           </div>
           <div class="skill-item">
-            <i class="fab fa-react skill-icon skill-react"></i>
-            <span class="skill-name">React.js</span>
-          </div>
-          <div class="skill-item">
             <i class="fab fa-bootstrap skill-icon skill-bootstrap"></i>
             <span class="skill-name">Bootstrap</span>
           </div>
 
-          <!-- Backend Frameworks -->
-          <div class="skill-item">
-            <i class="fab fa-laravel skill-icon skill-laravel"></i>
-            <span class="skill-name">Laravel</span>
-          </div>
+          <!-- Backend Technologies -->
           <div class="skill-item">
             <i class="fab fa-node-js skill-icon skill-nodejs"></i>
             <span class="skill-name">Node.js</span>
@@ -1836,6 +1843,10 @@
           <div class="skill-item">
             <i class="fab fa-symfony skill-icon skill-symfony"></i>
             <span class="skill-name">Symfony</span>
+          </div>
+          <div class="skill-item">
+            <i class="fab fa-java skill-icon skill-java"></i>
+            <span class="skill-name">Java</span>
           </div>
 
           <!-- Databases -->
@@ -1861,178 +1872,6 @@
       </div>
     </section>
 
-    <!-- Projects Section -->
-    <section id="projects" class="section">
-      <div class="container">
-        <h2 class="section-title" data-translate="projects.title">Projects</h2>
-        <div class="projects-grid">
-          <div class="project-card">
-            <div class="project-image">
-              <i class="fas fa-pallet"></i>
-              <div class="project-overlay">
-                <div class="project-actions">
-                  <a
-                    href="#"
-                    class="action-btn demo-btn"
-                    title="Demo coming soon"
-                  >
-                    <i class="fas fa-eye"></i>
-                  </a>
-                  <a
-                    href="#"
-                    class="action-btn details-btn"
-                    onclick="openProjectModal('project1')"
-                  >
-                    <i class="fas fa-info-circle"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="project-content">
-              <h3
-                class="project-title"
-                data-translate="projects.project1.title"
-              >
-                Pallet Management Application
-              </h3>
-              <p
-                class="project-description"
-                data-translate="projects.project1.desc"
-              >
-                A comprehensive web application developed during my internship
-                at Ménara Holding. Features complete pallet lifecycle
-                management, inventory tracking, and reporting dashboard with
-                role-based authentication.
-              </p>
-              <div class="tech-tags">
-                <span class="tech-tag">Laravel</span>
-                <span class="tech-tag">React.js</span>
-                <span class="tech-tag">MySQL</span>
-                <span class="tech-tag">Docker</span>
-              </div>
-              <div class="project-links">
-                <a
-                  href="#"
-                  class="btn btn-primary demo-disabled"
-                  title="Demo deployment in progress"
-                >
-                  <i class="fas fa-external-link-alt"></i>
-                  Live Demo
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div class="project-card">
-            <div class="project-image">
-              <i class="fas fa-calculator"></i>
-            </div>
-            <div class="project-content">
-              <h3
-                class="project-title"
-                data-translate="projects.project2.title"
-              >
-                Accounting Application
-              </h3>
-              <p
-                class="project-description"
-                data-translate="projects.project2.desc"
-              >
-                A robust financial management system built during my training at
-                MIT. Features transaction management, financial reporting, data
-                visualization, and secure API endpoints for financial
-                operations.
-              </p>
-              <div class="tech-tags">
-                <span class="tech-tag">Symfony</span>
-                <span class="tech-tag">React.js</span>
-                <span class="tech-tag">PHP</span>
-                <span class="tech-tag">REST API</span>
-              </div>
-              <div class="project-links">
-                <a
-                  href="#"
-                  class="btn btn-primary demo-disabled"
-                  title="Demo deployment in progress"
-                >
-                  <i class="fas fa-external-link-alt"></i>
-                  Live Demo
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div class="project-card">
-            <div class="project-image">
-              <i class="fas fa-utensils"></i>
-            </div>
-            <div class="project-content">
-              <h3
-                class="project-title"
-                data-translate="projects.project3.title"
-              >
-                Online Food Ordering System
-              </h3>
-              <p
-                class="project-description"
-                data-translate="projects.project3.desc"
-              >
-                A complete e-commerce platform for food delivery with user
-                authentication, menu management, shopping cart, order tracking,
-                and payment integration. Features admin panel for restaurant
-                management.
-              </p>
-              <div class="tech-tags">
-                <span class="tech-tag">JavaScript</span>
-                <span class="tech-tag">PHP</span>
-                <span class="tech-tag">MySQL</span>
-                <span class="tech-tag">HTML5</span>
-              </div>
-              <div class="project-links">
-                <a
-                  href="https://issamdi.github.io/food-ordering-website/index.html"
-                  class="btn btn-demo"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <i class="fas fa-rocket"></i>
-                  Live Demo
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div class="project-card">
-            <div class="project-image">
-              <i class="fas fa-laptop-code"></i>
-            </div>
-            <div class="project-content">
-              <h3
-                class="project-title"
-                data-translate="projects.project4.title"
-              >
-                Portfolio Website
-              </h3>
-              <p
-                class="project-description"
-                data-translate="projects.project4.desc"
-              >
-                A modern, responsive portfolio website with dark/light mode
-                toggle, smooth animations, and optimized performance. Built to
-                showcase projects and professional experience.
-              </p>
-              <div class="tech-tags">
-                <span class="tech-tag">HTML5</span>
-                <span class="tech-tag">CSS3</span>
-                <span class="tech-tag">JavaScript</span>
-                <span class="tech-tag">Responsive</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- Contact Section -->
     <section id="contact" class="section contact">
       <div class="container">
@@ -2045,19 +1884,24 @@
             Whether you're looking for a developer to join your team or you have
             a project in mind, I'd love to hear from you!
           </p>
-          <a href="mailto:daoudi.issamm@gmail.com" class="contact-email"
-            >daoudi.issamm@gmail.com</a
-          >
+          <div class="contact-email-section">
+            <span class="contact-label" data-translate="contact.label"
+              >Contact:</span
+            >
+            <a href="mailto:daoudi.issamm@gmail.com" class="contact-email"
+              >daoudi.issamm@gmail.com</a
+            >
+          </div>
           <div class="social-links">
             <a
-              href="https://github.com/daoudi-issam"
+              href="https://github.com/issamdi"
               class="social-link"
               target="_blank"
             >
               <i class="fab fa-github"></i>
             </a>
             <a
-              href="https://linkedin.com/in/daoudi-issam"
+              href="https://www.linkedin.com/in/daoudi-issamm/"
               class="social-link"
               target="_blank"
             >
@@ -2095,8 +1939,10 @@
           "nav.contact": "Contact",
           "hero.title": "Full-Stack Developer",
           "hero.tagline":
-            "Passionate Junior Full-Stack Developer with hands-on experience in building robust web applications. Proficient in back-end (PHP/Laravel) and front-end (React.js) development.",
-          "hero.downloadCV": "Download CV",
+            "Passionate Junior Full-Stack Developer with hands-on experience building robust web applications. Proficient in React.js, PHP/Laravel, and modern development practices.",
+          "hero.about":
+            "Quick learner and collaborative team player, eager to contribute to innovative projects. Experienced in end-to-end development from database design to responsive UI creation.",
+          "hero.downloadCV": "View CV",
           "about.title": "About Me",
           "about.text1":
             "Passionate Junior Full-Stack Developer with hands-on experience in building robust web applications. Proficient in back-end (PHP/Laravel) and front-end (React.js) development, gained through a comprehensive internship at Ménara Holding.",
@@ -2174,6 +2020,7 @@
           "contact.title": "Let's Work Together",
           "contact.text":
             "I'm always interested in new opportunities and exciting projects. Whether you're looking for a developer to join your team or you have a project in mind, I'd love to hear from you!",
+          "contact.label": "Contact:",
         },
         fr: {
           "nav.about": "À Propos",
@@ -2184,8 +2031,10 @@
           "nav.contact": "Contact",
           "hero.title": "Développeur Full-Stack",
           "hero.tagline":
-            "Développeur Full-Stack Junior passionné avec une expérience pratique dans la création d'applications web robustes. Compétent en développement back-end (PHP/Laravel) et front-end (React.js).",
-          "hero.downloadCV": "Télécharger CV",
+            "Développeur Full-Stack Junior passionné avec une expérience pratique dans la création d'applications web robustes. Compétent en React.js, PHP/Laravel, et pratiques de développement modernes.",
+          "hero.about":
+            "Apprenant rapide et collaborateur d'équipe, désireux de contribuer à des projets innovants. Expérience en développement complet de la conception de base de données à la création d'interfaces utilisateur responsives.",
+          "hero.downloadCV": "Voir CV",
           "about.title": "À Propos de Moi",
           "about.text1":
             "Développeur Full-Stack Junior passionné avec une expérience pratique dans la création d'applications web robustes. Compétent en développement back-end (PHP/Laravel) et front-end (React.js), acquise grâce à un stage complet chez Ménara Holding.",
@@ -2252,7 +2101,7 @@
           "projects.project1.title": "Application de Gestion de Palettes",
           "projects.project1.desc":
             "Une application web complète développée pendant mon stage chez Ménara Holding. Comprend la gestion complète du cycle de vie des palettes, le suivi d'inventaire, et un tableau de bord de reporting avec authentification basée sur les rôles.",
-          "projects.project2.title": "Application Comptable",
+          "projects.project2.title": "Application de Comptabilité",
           "projects.project2.desc":
             "Un système de gestion financière robuste construit pendant ma formation au MIT. Comprend la gestion des transactions, le reporting financier, la visualisation des données, et des points de terminaison API sécurisés pour les opérations financières.",
           "projects.project3.title":
@@ -2262,9 +2111,10 @@
           "projects.project4.title": "Site Web Portfolio",
           "projects.project4.desc":
             "Un site web portfolio moderne et responsive avec basculement mode sombre/clair, animations fluides, et performance optimisée. Construit pour présenter les projets et l'expérience professionnelle.",
-          "contact.title": "Travaillons Ensemble",
+          "contact.title": "Travaillons Ensemble ?",
           "contact.text":
-            "Je suis toujours intéressé par de nouvelles opportunités et des projets passionnants. Que vous cherchiez un développeur pour rejoindre votre équipe ou que vous ayez un projet en tête, j'aimerais avoir de vos nouvelles!",
+            "Toujours à la recherche de nouvelles opportunités et de projets passionnants, je serais ravi de mettre mes compétences à votre service. Si vous cherchez un développeur pour rejoindre votre équipe ou si vous avez un projet à réaliser, n'hésitez pas à me contacter !",
+          "contact.label": "Contact:",
         },
       };
 
@@ -2274,8 +2124,8 @@
       const currentLanguageSpan = document.getElementById("currentLanguage");
       const languageOptions = document.querySelectorAll(".language-option");
 
-      // Get saved language or default to English
-      let currentLang = localStorage.getItem("language") || "en";
+      // Get saved language or default to French
+      let currentLang = localStorage.getItem("language") || "fr";
 
       // Initialize language
       function initializeLanguage() {
