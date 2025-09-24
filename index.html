@@ -470,6 +470,90 @@
         border-radius: 2px;
       }
 
+      /* Compact Skills Section */
+      .skills-compact {
+        background: var(--bg-solid);
+        padding: 2rem 0;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .skills-compact-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        flex-wrap: wrap;
+      }
+
+      .skills-label {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--text-color);
+        white-space: nowrap;
+      }
+
+      .skills-row {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+      }
+
+      .skill-compact {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        background: var(--card-bg);
+        border-radius: 20px;
+        border: 1px solid var(--border-color);
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+
+      .skill-compact:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-hover);
+        border-color: var(--accent-color);
+      }
+
+      .skill-compact i {
+        font-size: 1.2rem;
+        color: var(--accent-color);
+        transition: all 0.3s ease;
+      }
+
+      .skill-compact:hover i {
+        transform: scale(1.2);
+      }
+
+      .skill-compact span {
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: var(--text-color);
+      }
+
+      @media (max-width: 768px) {
+        .skills-compact-content {
+          flex-direction: column;
+          gap: 1rem;
+        }
+        
+        .skills-row {
+          justify-content: center;
+          gap: 1rem;
+        }
+        
+        .skill-compact {
+          font-size: 0.8rem;
+          padding: 0.4rem 0.8rem;
+        }
+        
+        .skill-compact i {
+          font-size: 1rem;
+        }
+      }
+
       /* About Section */
       .about-content {
         max-width: 800px;
@@ -1255,6 +1339,221 @@
                   <i class="fab fa-linkedin"></i>
                   LinkedIn
                 </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Compact Skills Section -->
+    <section class="skills-compact">
+      <div class="container">
+        <div class="skills-compact-content">
+          <span class="skills-label" data-translate="skills.title">Tech Stack:</span>
+          <div class="skills-row">
+            <div class="skill-compact" title="Java">
+              <i class="fab fa-java"></i>
+              <span>Java</span>
+            </div>
+            <div class="skill-compact" title="JavaScript">
+              <i class="fab fa-js-square"></i>
+              <span>JavaScript</span>
+            </div>
+            <div class="skill-compact" title="PHP">
+              <i class="fab fa-php"></i>
+              <span>PHP</span>
+            </div>
+            <div class="skill-compact" title="Laravel">
+              <i class="fab fa-laravel"></i>
+              <span>Laravel</span>
+            </div>
+            <div class="skill-compact" title="React.js">
+              <i class="fab fa-react"></i>
+              <span>React.js</span>
+            </div>
+            <div class="skill-compact" title="Node.js">
+              <i class="fab fa-node-js"></i>
+              <span>Node.js</span>
+            </div>
+            <div class="skill-compact" title="MySQL">
+              <i class="fas fa-database"></i>
+              <span>MySQL</span>
+            </div>
+            <div class="skill-compact" title="Docker">
+              <i class="fab fa-docker"></i>
+              <span>Docker</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section">
+      <div class="container">
+        <h2 class="section-title" data-translate="projects.title">Projects</h2>
+        <div class="projects-grid">
+          <div class="project-card">
+            <div class="project-image">
+              <i class="fas fa-pallet"></i>
+              <div class="project-overlay">
+                <div class="project-actions">
+                  <a
+                    href="#"
+                    class="action-btn demo-btn"
+                    title="Demo coming soon"
+                  >
+                    <i class="fas fa-eye"></i>
+                  </a>
+                  <a
+                    href="#"
+                    class="action-btn details-btn"
+                    onclick="openProjectModal('project1')"
+                  >
+                    <i class="fas fa-info-circle"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="project-content">
+              <h3
+                class="project-title"
+                data-translate="projects.project1.title"
+              >
+                Pallet Management Application
+              </h3>
+              <p
+                class="project-description"
+                data-translate="projects.project1.desc"
+              >
+                A comprehensive web application developed during my internship
+                at Ménara Holding. Features complete pallet lifecycle
+                management, inventory tracking, and reporting dashboard with
+                role-based authentication.
+              </p>
+              <div class="tech-tags">
+                <span class="tech-tag">Laravel</span>
+                <span class="tech-tag">React.js</span>
+                <span class="tech-tag">MySQL</span>
+                <span class="tech-tag">Docker</span>
+              </div>
+              <div class="project-links">
+                <a
+                  href="#"
+                  class="btn btn-primary demo-disabled"
+                  title="Demo deployment in progress"
+                >
+                  <i class="fas fa-external-link-alt"></i>
+                  Live Demo
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div class="project-image">
+              <i class="fas fa-calculator"></i>
+            </div>
+            <div class="project-content">
+              <h3
+                class="project-title"
+                data-translate="projects.project2.title"
+              >
+                Accounting Application
+              </h3>
+              <p
+                class="project-description"
+                data-translate="projects.project2.desc"
+              >
+                A robust financial management system built during my training at
+                MIT. Features transaction management, financial reporting, data
+                visualization, and secure API endpoints for financial
+                operations.
+              </p>
+              <div class="tech-tags">
+                <span class="tech-tag">Symfony</span>
+                <span class="tech-tag">React.js</span>
+                <span class="tech-tag">PHP</span>
+                <span class="tech-tag">REST API</span>
+              </div>
+              <div class="project-links">
+                <a
+                  href="#"
+                  class="btn btn-primary demo-disabled"
+                  title="Demo deployment in progress"
+                >
+                  <i class="fas fa-external-link-alt"></i>
+                  Live Demo
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div class="project-image">
+              <i class="fas fa-utensils"></i>
+            </div>
+            <div class="project-content">
+              <h3
+                class="project-title"
+                data-translate="projects.project3.title"
+              >
+                Online Food Ordering System
+              </h3>
+              <p
+                class="project-description"
+                data-translate="projects.project3.desc"
+              >
+                A complete e-commerce platform for food delivery with user
+                authentication, menu management, shopping cart, order tracking,
+                and payment integration. Features admin panel for restaurant
+                management.
+              </p>
+              <div class="tech-tags">
+                <span class="tech-tag">JavaScript</span>
+                <span class="tech-tag">PHP</span>
+                <span class="tech-tag">MySQL</span>
+                <span class="tech-tag">HTML5</span>
+              </div>
+              <div class="project-links">
+                <a
+                  href="https://issamdi.github.io/food-ordering-website/index.html"
+                  class="btn btn-demo"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <i class="fas fa-rocket"></i>
+                  Live Demo
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div class="project-image">
+              <i class="fas fa-laptop-code"></i>
+            </div>
+            <div class="project-content">
+              <h3
+                class="project-title"
+                data-translate="projects.project4.title"
+              >
+                Portfolio Website
+              </h3>
+              <p
+                class="project-description"
+                data-translate="projects.project4.desc"
+              >
+                A modern, responsive portfolio website with dark/light mode
+                toggle, smooth animations, and optimized performance. Built to
+                showcase projects and professional experience.
+              </p>
+              <div class="tech-tags">
+                <span class="tech-tag">HTML5</span>
+                <span class="tech-tag">CSS3</span>
+                <span class="tech-tag">JavaScript</span>
+                <span class="tech-tag">Responsive</span>
               </div>
             </div>
           </div>
