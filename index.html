@@ -25,6 +25,7 @@
         --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         --shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.15);
         --navbar-bg: rgba(248, 249, 250, 0.95);
+        --bg-rgb: 255, 255, 255;
       }
 
       [data-theme="dark"] {
@@ -37,6 +38,7 @@
         --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
         --shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.4);
         --navbar-bg: rgba(26, 26, 26, 0.95);
+        --bg-rgb: 18, 18, 18;
       }
 
       /* Global Styles */
@@ -70,12 +72,35 @@
         top: 0;
         left: 0;
         right: 0;
-        background: var(--navbar-bg);
-        backdrop-filter: blur(10px);
+        background: rgba(var(--bg-rgb), 0.15);
+        backdrop-filter: blur(35px) saturate(1.6) brightness(1.1);
+        -webkit-backdrop-filter: blur(35px) saturate(1.6) brightness(1.1);
         z-index: 1000;
         padding: 1rem 0;
-        border-bottom: 1px solid var(--border-color);
-        transition: all 0.3s ease;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.04),
+          0 1px 3px rgba(0, 0, 0, 0.02);
+      }
+
+      /* Enhanced glassmorphism on scroll */
+      .navbar.scrolled {
+        background: rgba(var(--bg-rgb), 0.25);
+        backdrop-filter: blur(40px) saturate(1.8) brightness(1.15);
+        -webkit-backdrop-filter: blur(40px) saturate(1.8) brightness(1.15);
+        box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08),
+          0 2px 6px rgba(0, 0, 0, 0.04);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      /* Support for browsers without backdrop-filter */
+      @supports not (backdrop-filter: blur()) {
+        .navbar {
+          background: rgba(var(--bg-rgb), 0.85);
+        }
+        .navbar.scrolled {
+          background: rgba(var(--bg-rgb), 0.95);
+        }
       }
 
       .nav-content {
@@ -266,30 +291,82 @@
         box-shadow: var(--shadow-hover);
       }
 
-      .hero-info {
-        flex: 1;
-        padding-top: 0.5rem;
-      }
-
-      .hero h1 {
-        font-size: 2.5rem;
-        font-weight: 700;
-        margin-bottom: 0.5rem;
+      .scroll-top {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 50px;
+        height: 50px;
+        /* stronger base for light mode so glass shows on white backgrounds */
+        background: rgba(255, 255, 255, 0.56);
         color: var(--text-color);
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 1.2rem;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.32s cubic-bezier(0.2, 0.9, 0.2, 1);
+        z-index: 1000;
+        display: grid;
+        place-items: center;
+        backdrop-filter: blur(56px) saturate(2.4) brightness(1.14);
+        -webkit-backdrop-filter: blur(56px) saturate(2.4) brightness(1.14);
+        box-shadow: 0 16px 44px rgba(0, 0, 0, 0.18),
+          inset 0 3px 8px rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        overflow: hidden;
       }
 
-      .hero .subtitle {
-        font-size: 1.3rem;
-        color: var(--accent-color);
-        margin-bottom: 1rem;
-        font-weight: 500;
+      /* Dark theme override: use dark translucent base and lighter border */
+      [data-theme="dark"] .scroll-top {
+        background: rgba(18, 18, 18, 0.16);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 16px 44px rgba(0, 0, 0, 0.22),
+          inset 0 3px 8px rgba(255, 255, 255, 0.04);
       }
 
-      .hero .tagline {
-        font-size: 1.1rem;
-        color: var(--secondary-text);
-        margin-bottom: 1.5rem;
-        line-height: 1.6;
+      /* glossy highlight to simulate thick glass reflection */
+      .scroll-top::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        background: radial-gradient(
+          120% 80% at 20% 18%,
+          rgba(255, 255, 255, 0.28),
+          rgba(255, 255, 255, 0.06) 18%,
+          rgba(255, 255, 255, 0.02) 40%,
+          transparent 60%
+        );
+        mix-blend-mode: overlay;
+        pointer-events: none;
+      }
+
+      /* Subtle tint overlay to make glass visible on very light backgrounds */
+      .scroll-top::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        background: linear-gradient(
+          135deg,
+          rgba(125, 208, 255, 0.06),
+          rgba(126, 240, 192, 0.04)
+        );
+        mix-blend-mode: multiply;
+        pointer-events: none;
+      }
+
+      /* Light-mode override: stronger, slightly saturated tint to better reflect colors */
+      html:not([data-theme="dark"]) .scroll-top::after {
+        background: linear-gradient(
+          135deg,
+          rgba(125, 208, 255, 0.14),
+          rgba(126, 240, 192, 0.1)
+        );
+        mix-blend-mode: screen;
+        opacity: 0.95;
       }
 
       .hero-about {
@@ -319,8 +396,10 @@
         transition: all 0.3s ease;
         display: inline-flex;
         align-items: center;
+        justify-content: center;
         gap: 8px;
         border: 2px solid transparent;
+        text-align: center;
       }
 
       .btn-primary {
@@ -444,9 +523,6 @@
         100% {
           transform: scale(1);
         }
-        color: white;
-        transform: translateY(-2px);
-        box-shadow: var(--shadow-hover);
       }
 
       /* Section Styles */
@@ -481,90 +557,6 @@
         height: 4px;
         background: var(--accent-color);
         border-radius: 2px;
-      }
-
-      /* Compact Skills Section */
-      .skills-compact {
-        background: var(--bg-solid);
-        padding: 2rem 0;
-        border-bottom: 1px solid var(--border-color);
-      }
-
-      .skills-compact-content {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 2rem;
-        flex-wrap: wrap;
-      }
-
-      .skills-label {
-        font-size: 1.1rem;
-        font-weight: 600;
-        color: var(--text-color);
-        white-space: nowrap;
-      }
-
-      .skills-row {
-        display: flex;
-        align-items: center;
-        gap: 1.5rem;
-        flex-wrap: wrap;
-      }
-
-      .skill-compact {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 0.5rem 1rem;
-        background: var(--card-bg);
-        border-radius: 20px;
-        border: 1px solid var(--border-color);
-        transition: all 0.3s ease;
-        cursor: pointer;
-      }
-
-      .skill-compact:hover {
-        transform: translateY(-3px);
-        box-shadow: var(--shadow-hover);
-        border-color: var(--accent-color);
-      }
-
-      .skill-compact i {
-        font-size: 1.2rem;
-        color: var(--accent-color);
-        transition: all 0.3s ease;
-      }
-
-      .skill-compact:hover i {
-        transform: scale(1.2);
-      }
-
-      .skill-compact span {
-        font-size: 0.9rem;
-        font-weight: 500;
-        color: var(--text-color);
-      }
-
-      @media (max-width: 768px) {
-        .skills-compact-content {
-          flex-direction: column;
-          gap: 1rem;
-        }
-
-        .skills-row {
-          justify-content: center;
-          gap: 1rem;
-        }
-
-        .skill-compact {
-          font-size: 0.8rem;
-          padding: 0.4rem 0.8rem;
-        }
-
-        .skill-compact i {
-          font-size: 1rem;
-        }
       }
 
       /* About Section */
@@ -685,6 +677,73 @@
         left: 0;
         color: var(--accent-color);
         font-weight: bold;
+      }
+
+      /* Certificates Section */
+      .certificates-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+
+      .certificate-card {
+        background: var(--card-bg);
+        border-radius: 15px;
+        padding: 2rem;
+        box-shadow: var(--shadow);
+        transition: all 0.3s ease;
+        text-align: center;
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      .certificate-card.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .certificate-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-hover);
+      }
+
+      .certificate-icon {
+        font-size: 3rem;
+        color: var(--accent-color);
+        margin-bottom: 1rem;
+      }
+
+      .certificate-title {
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: var(--text-color);
+        margin-bottom: 0.5rem;
+      }
+
+      .certificate-issuer {
+        font-size: 1rem;
+        color: var(--accent-color);
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+      }
+
+      .certificate-description {
+        font-size: 0.9rem;
+        color: var(--secondary-text);
+        line-height: 1.4;
+        margin-bottom: 1rem;
+        text-align: center;
+      }
+
+      .certificate-date {
+        font-size: 0.9rem;
+        color: var(--secondary-text);
+        margin-bottom: 1.5rem;
+      }
+
+      .certificate-btn {
+        margin-top: 1rem;
       }
 
       /* Skills Section */
@@ -997,6 +1056,134 @@
         font-size: 1rem;
       }
 
+      /* Languages Section */
+      .languages-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 2rem 0;
+      }
+
+      @media (max-width: 768px) {
+        .languages-grid {
+          grid-template-columns: 1fr;
+          gap: 1rem;
+        }
+      }
+
+      .language-item {
+        display: flex;
+        align-items: center;
+        padding: 1.5rem;
+        border-radius: 15px;
+        background: var(--card-bg);
+        box-shadow: var(--shadow);
+        transition: all 0.3s ease;
+        opacity: 0;
+        transform: translateY(30px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      .language-item.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .language-item:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-hover);
+      }
+
+      .language-flag {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--accent-color), #4db8ff);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 1.5rem;
+        font-size: 1.5rem;
+        color: white;
+        flex-shrink: 0;
+      }
+
+      .language-info {
+        flex: 1;
+      }
+
+      .language-name {
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: var(--text-color);
+        margin: 0 0 0.5rem 0;
+      }
+
+      .language-level {
+        font-size: 1rem;
+        color: var(--accent-color);
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+      }
+
+      .language-progress {
+        width: 100%;
+        height: 8px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        overflow: hidden;
+        margin-top: 0.5rem;
+      }
+
+      .language-progress-bar {
+        height: 100%;
+        background: linear-gradient(90deg, var(--accent-color), #4db8ff);
+        border-radius: 10px;
+        width: 0;
+        transition: width 1.5s ease-in-out 0.3s;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .language-progress-bar::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.3),
+          transparent
+        );
+        animation: shimmer 2s infinite;
+      }
+
+      @keyframes shimmer {
+        0% {
+          left: -100%;
+        }
+        100% {
+          left: 100%;
+        }
+      }
+
+      .language-item.visible .language-progress-bar[data-level="100"] {
+        width: 100%;
+      }
+
+      .language-item.visible .language-progress-bar[data-level="85"] {
+        width: 85%;
+      }
+
+      .language-item.visible .language-progress-bar[data-level="70"] {
+        width: 70%;
+      }
+
       /* Contact Section */
       .contact {
         background: var(--card-bg);
@@ -1017,7 +1204,7 @@
 
       .contact-email-section {
         display: flex;
-        flex-direction: column;
+        justify-content: center;
         align-items: center;
         margin-bottom: 2rem;
         gap: 0.5rem;
@@ -1040,6 +1227,40 @@
 
       .contact-email:hover {
         transform: scale(1.05);
+      }
+
+      .contact-phone-section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 2rem;
+        gap: 0.5rem;
+      }
+
+      .contact-phone {
+        font-size: 1.3rem;
+        color: var(--accent-color);
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
+
+      .contact-phone:hover {
+        transform: scale(1.05);
+      }
+
+      .contact-icon {
+        font-size: 1.2rem;
+        color: var(--accent-color);
+        margin-right: 0.8rem;
+        opacity: 0.8;
+        transition: all 0.3s ease;
+      }
+
+      .contact-email-section:hover .contact-icon,
+      .contact-phone-section:hover .contact-icon {
+        transform: scale(1.1);
+        opacity: 1;
       }
 
       .social-links {
@@ -1189,33 +1410,68 @@
         }
       }
 
-      /* Scroll to top button */
+      /* Scroll to top button — compact circular with subtle iOS-style rim */
       .scroll-top {
         position: fixed;
         bottom: 30px;
         right: 30px;
         width: 50px;
         height: 50px;
-        background: var(--accent-color);
-        color: white;
+        background: rgba(var(--bg-rgb), 0.18);
+        color: var(--text-color);
         border: none;
         border-radius: 50%;
         cursor: pointer;
         font-size: 1.2rem;
         opacity: 0;
         visibility: hidden;
-        transition: all 0.3s ease;
+        transition: all 0.28s cubic-bezier(0.2, 0.9, 0.2, 1);
         z-index: 1000;
+        display: grid;
+        place-items: center;
+        backdrop-filter: blur(20px) saturate(1.35) brightness(1.05);
+        -webkit-backdrop-filter: blur(20px) saturate(1.35) brightness(1.05);
+        box-shadow: 0 8px 26px rgba(0, 0, 0, 0.1),
+          inset 0 1px 0 rgba(255, 255, 255, 0.03);
+        /* outer faint stroke to define the glass edge */
+        border: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      /* inner glossy rim to emulate iOS glass buttons */
+      .scroll-top::after {
+        content: "";
+        position: absolute;
+        inset: 1px;
+        border-radius: 50%;
+        pointer-events: none;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22),
+          inset 0 -6px 12px rgba(255, 255, 255, 0.02);
       }
 
       .scroll-top.visible {
         opacity: 1;
         visibility: visible;
+        transform: translateY(0) scale(1);
       }
 
       .scroll-top:hover {
-        transform: translateY(-3px);
-        box-shadow: var(--shadow-hover);
+        transform: translateY(-4px);
+        box-shadow: 0 14px 36px rgba(0, 0, 0, 0.16);
+      }
+
+      /* Support for browsers without backdrop-filter */
+      @supports not (backdrop-filter: blur()) {
+        .scroll-top {
+          background: rgba(var(--bg-rgb), 0.9);
+        }
+      }
+
+      /* Dark theme override: use dark translucent base and lighter border */
+      [data-theme="dark"] .scroll-top {
+        background: rgba(18, 18, 18, 0.16);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 12px 36px rgba(0, 0, 0, 0.24),
+          inset 0 2px 6px rgba(255, 255, 255, 0.04);
       }
 
       /* RTL Support for Arabic */
@@ -1304,10 +1560,18 @@
               >
             </li>
             <li>
+              <a href="#skills" data-translate="nav.skills">Skills</a>
+            </li>
+            <li>
               <a href="#education" data-translate="nav.education">Education</a>
             </li>
             <li>
-              <a href="#skills" data-translate="nav.skills">Skills</a>
+              <a href="#certificates" data-translate="nav.certificates"
+                >Certificates</a
+              >
+            </li>
+            <li>
+              <a href="#languages" data-translate="nav.languages">Languages</a>
             </li>
             <li><a href="#contact" data-translate="nav.contact">Contact</a></li>
             <li>
@@ -1402,56 +1666,12 @@
       </div>
     </section>
 
-    <!-- Compact Skills Section -->
-    <section class="skills-compact">
-      <div class="container">
-        <div class="skills-compact-content">
-          <span class="skills-label" data-translate="skills.title"
-            >Tech Stack:</span
-          >
-          <div class="skills-row">
-            <div class="skill-compact" title="React.js">
-              <i class="fab fa-react"></i>
-              <span>React.js</span>
-            </div>
-            <div class="skill-compact" title="JavaScript">
-              <i class="fab fa-js-square"></i>
-              <span>JavaScript</span>
-            </div>
-            <div class="skill-compact" title="PHP">
-              <i class="fab fa-php"></i>
-              <span>PHP</span>
-            </div>
-            <div class="skill-compact" title="Laravel">
-              <i class="fab fa-laravel"></i>
-              <span>Laravel</span>
-            </div>
-            <div class="skill-compact" title="Node.js">
-              <i class="fab fa-node-js"></i>
-              <span>Node.js</span>
-            </div>
-            <div class="skill-compact" title="Java">
-              <i class="fab fa-java"></i>
-              <span>Java</span>
-            </div>
-            <div class="skill-compact" title="MySQL">
-              <i class="fas fa-database"></i>
-              <span>MySQL</span>
-            </div>
-            <div class="skill-compact" title="Docker">
-              <i class="fab fa-docker"></i>
-              <span>Docker</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- Projects Section -->
     <section id="projects" class="section">
       <div class="container">
         <h2 class="section-title" data-translate="projects.title">Projects</h2>
         <div class="projects-grid">
+          <!-- 1: Pallet Management Application (project1) -->
           <div class="project-card">
             <div class="project-image">
               <i class="fas fa-pallet"></i>
@@ -1462,14 +1682,12 @@
                     class="action-btn demo-btn"
                     title="Demo coming soon"
                   >
-                    <i class="fas fa-eye"></i>
                   </a>
                   <a
                     href="#"
                     class="action-btn details-btn"
                     onclick="openProjectModal('project1')"
                   >
-                    <i class="fas fa-info-circle"></i>
                   </a>
                 </div>
               </div>
@@ -1498,17 +1716,99 @@
               </div>
               <div class="project-links">
                 <a
-                  href="#"
-                  class="btn btn-primary demo-disabled"
-                  title="Demo deployment in progress"
+                  href="Projects/work_samples_paller_management.pdf"
+                  class="btn btn-demo"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
-                  <i class="fas fa-external-link-alt"></i>
+                  <i class="fas fa-file-pdf"></i>
+                  WORK SAMPLES
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2: Online Food Ordering Platform (project3) -->
+          <div class="project-card">
+            <div class="project-image">
+              <i class="fas fa-utensils"></i>
+            </div>
+            <div class="project-content">
+              <h3
+                class="project-title"
+                data-translate="projects.project3.title"
+              >
+                Online Food Ordering Platform
+              </h3>
+              <p
+                class="project-description"
+                data-translate="projects.project3.desc"
+              >
+                A complete e-commerce platform for food delivery with user
+                authentication, menu management, shopping cart, order tracking,
+                and payment integration. Features admin panel for restaurant
+                management.
+              </p>
+              <div class="tech-tags">
+                <span class="tech-tag">JavaScript</span>
+                <span class="tech-tag">PHP</span>
+                <span class="tech-tag">MySQL</span>
+                <span class="tech-tag">HTML5</span>
+              </div>
+              <div class="project-links">
+                <a
+                  href="https://issamdi.github.io/food-ordering-website/index.html"
+                  class="btn btn-demo"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <i class="fas fa-rocket"></i>
                   Live Demo
                 </a>
               </div>
             </div>
           </div>
 
+          <!-- 3: HR Management Desktop Application (project5) -->
+          <div class="project-card">
+            <div class="project-image">
+              <i class="fas fa-briefcase"></i>
+            </div>
+            <div class="project-content">
+              <h3
+                class="project-title"
+                data-translate="projects.project5.title"
+              >
+                HR Management Desktop Application
+              </h3>
+              <p
+                class="project-description"
+                data-translate="projects.project5.desc"
+              >
+                Developed as my internship project for TOUIRS SARL, this
+                application was built to modernize the company's HR and payroll
+                processes as part of my Specialized Technician Diploma from ISTA
+                NTIC SYBA.
+              </p>
+              <div class="tech-tags">
+                <span class="tech-tag">ADO.NET</span>
+                <span class="tech-tag">SQLServer</span>
+              </div>
+              <div class="project-links">
+                <a
+                  href="Projects/work_samples_DesktopApp.pdf"
+                  class="btn btn-demo"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <i class="fas fa-file-pdf"></i>
+                  Work Samples
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4: Accounting Application (project2) -->
           <div class="project-card">
             <div class="project-image">
               <i class="fas fa-calculator"></i>
@@ -1548,46 +1848,7 @@
             </div>
           </div>
 
-          <div class="project-card">
-            <div class="project-image">
-              <i class="fas fa-utensils"></i>
-            </div>
-            <div class="project-content">
-              <h3
-                class="project-title"
-                data-translate="projects.project3.title"
-              >
-                Online Food Ordering System
-              </h3>
-              <p
-                class="project-description"
-                data-translate="projects.project3.desc"
-              >
-                A complete e-commerce platform for food delivery with user
-                authentication, menu management, shopping cart, order tracking,
-                and payment integration. Features admin panel for restaurant
-                management.
-              </p>
-              <div class="tech-tags">
-                <span class="tech-tag">JavaScript</span>
-                <span class="tech-tag">PHP</span>
-                <span class="tech-tag">MySQL</span>
-                <span class="tech-tag">HTML5</span>
-              </div>
-              <div class="project-links">
-                <a
-                  href="https://issamdi.github.io/food-ordering-website/index.html"
-                  class="btn btn-demo"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <i class="fas fa-rocket"></i>
-                  Live Demo
-                </a>
-              </div>
-            </div>
-          </div>
-
+          <!-- 5: Portfolio Website (project4) -->
           <div class="project-card">
             <div class="project-image">
               <i class="fas fa-laptop-code"></i>
@@ -1661,6 +1922,31 @@
           <div class="timeline-item">
             <div class="timeline-dot"></div>
             <div class="timeline-content">
+              <h3 class="job-title" data-translate="experience.job3.title">
+                Desktop Application Developer Intern
+              </h3>
+              <p class="company" data-translate="experience.job3.company">
+                TOUIRS SARL
+              </p>
+              <p class="duration" data-translate="experience.job3.duration">
+                2023
+              </p>
+              <ul class="responsibilities">
+                <li data-translate="experience.job3.desc1">
+                  Developed a desktop application for the company's human
+                  resources management
+                </li>
+                <li data-translate="experience.job3.desc2">
+                  Implemented CRUD functionalities and salary calculation
+                  features using ADO.NET and SQLServer
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
               <h3 class="job-title" data-translate="experience.job2.title">
                 Full-Stack Developer (Training Project)
               </h3>
@@ -1688,6 +1974,80 @@
                 </li>
               </ul>
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section">
+      <div class="container">
+        <h2 class="section-title" data-translate="skills.title">Skills</h2>
+        <div class="skills-grid">
+          <!-- Primary Technologies -->
+          <div class="skill-item">
+            <i class="fab fa-react skill-icon skill-react"></i>
+            <span class="skill-name">React.js</span>
+          </div>
+          <div class="skill-item">
+            <i class="fab fa-js-square skill-icon skill-javascript"></i>
+            <span class="skill-name">JavaScript</span>
+          </div>
+          <div class="skill-item">
+            <i class="fab fa-php skill-icon skill-php"></i>
+            <span class="skill-name">PHP</span>
+          </div>
+          <div class="skill-item">
+            <i class="fab fa-laravel skill-icon skill-laravel"></i>
+            <span class="skill-name">Laravel</span>
+          </div>
+
+          <!-- Frontend Technologies -->
+          <div class="skill-item">
+            <i class="fab fa-html5 skill-icon skill-html"></i>
+            <span class="skill-name">HTML5</span>
+          </div>
+          <div class="skill-item">
+            <i class="fab fa-css3-alt skill-icon skill-css"></i>
+            <span class="skill-name">CSS3</span>
+          </div>
+          <div class="skill-item">
+            <i class="fab fa-bootstrap skill-icon skill-bootstrap"></i>
+            <span class="skill-name">Bootstrap</span>
+          </div>
+
+          <!-- Backend Technologies -->
+          <div class="skill-item">
+            <i class="fab fa-node-js skill-icon skill-node"></i>
+            <span class="skill-name">Node.js</span>
+          </div>
+          <div class="skill-item">
+            <i class="fab fa-java skill-icon skill-java"></i>
+            <span class="skill-name">Java</span>
+          </div>
+          <div class="skill-item">
+            <i class="fas fa-code skill-icon skill-symfony"></i>
+            <span class="skill-name">Symfony</span>
+          </div>
+
+          <!-- Database Technologies -->
+          <div class="skill-item">
+            <i class="fas fa-database skill-icon skill-mysql"></i>
+            <span class="skill-name">MySQL</span>
+          </div>
+          <div class="skill-item">
+            <i class="fas fa-leaf skill-icon skill-mongodb"></i>
+            <span class="skill-name">MongoDB</span>
+          </div>
+
+          <!-- DevOps & Tools -->
+          <div class="skill-item">
+            <i class="fab fa-docker skill-icon skill-docker"></i>
+            <span class="skill-name">Docker</span>
+          </div>
+          <div class="skill-item">
+            <i class="fab fa-git-alt skill-icon skill-git"></i>
+            <span class="skill-name">Git</span>
           </div>
         </div>
       </div>
@@ -1813,75 +2173,115 @@
       </div>
     </section>
 
-    <!-- Skills Section -->
-    <section id="skills" class="section">
+    <!-- Certificates Section -->
+    <section id="certificates" class="section">
       <div class="container">
-        <h2 class="section-title" data-translate="skills.title">Skills</h2>
-        <div class="skills-grid">
-          <!-- Primary Technologies -->
-          <div class="skill-item">
-            <i class="fab fa-react skill-icon skill-react"></i>
-            <span class="skill-name">React.js</span>
+        <h2 class="section-title" data-translate="certificates.title">
+          Certificates
+        </h2>
+        <div class="certificates-grid">
+          <div class="certificate-card">
+            <div class="certificate-icon">
+              <i class="fas fa-certificate"></i>
+            </div>
+            <div class="certificate-content">
+              <h3
+                class="certificate-title"
+                data-translate="certificates.cert1.title"
+              >
+                Professional Certificate
+              </h3>
+              <p
+                class="certificate-issuer"
+                data-translate="certificates.cert1.issuer"
+              >
+                Coursera
+              </p>
+              <p
+                class="certificate-date"
+                data-translate="certificates.cert1.date"
+              >
+                2024
+              </p>
+              <a
+                href="Files/Coursera S9XDQIMM2SW7.pdf"
+                class="btn btn-demo certificate-btn"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <i class="fas fa-file-download"></i>
+                <span data-translate="certificates.viewCertificate"
+                  >View Certificate</span
+                >
+              </a>
+            </div>
           </div>
-          <div class="skill-item">
-            <i class="fab fa-js-square skill-icon skill-javascript"></i>
-            <span class="skill-name">JavaScript</span>
-          </div>
-          <div class="skill-item">
-            <i class="fab fa-php skill-icon skill-php"></i>
-            <span class="skill-name">PHP</span>
-          </div>
-          <div class="skill-item">
-            <i class="fab fa-laravel skill-icon skill-laravel"></i>
-            <span class="skill-name">Laravel</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Languages Section -->
+    <section id="languages" class="section">
+      <div class="container">
+        <h2 class="section-title" data-translate="languages.title">
+          Languages
+        </h2>
+        <div class="languages-grid">
+          <div class="language-item">
+            <div class="language-flag">
+              <i class="fas fa-globe"></i>
+            </div>
+            <div class="language-info">
+              <h3 class="language-name" data-translate="languages.arabic.name">
+                Arabic
+              </h3>
+              <span
+                class="language-level"
+                data-translate="languages.arabic.level"
+                >Native</span
+              >
+              <div class="language-progress">
+                <div class="language-progress-bar" data-level="100"></div>
+              </div>
+            </div>
           </div>
 
-          <!-- Frontend Technologies -->
-          <div class="skill-item">
-            <i class="fab fa-html5 skill-icon skill-html"></i>
-            <span class="skill-name">HTML5</span>
-          </div>
-          <div class="skill-item">
-            <i class="fab fa-css3-alt skill-icon skill-css"></i>
-            <span class="skill-name">CSS3</span>
-          </div>
-          <div class="skill-item">
-            <i class="fab fa-bootstrap skill-icon skill-bootstrap"></i>
-            <span class="skill-name">Bootstrap</span>
-          </div>
-
-          <!-- Backend Technologies -->
-          <div class="skill-item">
-            <i class="fab fa-node-js skill-icon skill-nodejs"></i>
-            <span class="skill-name">Node.js</span>
-          </div>
-          <div class="skill-item">
-            <i class="fab fa-symfony skill-icon skill-symfony"></i>
-            <span class="skill-name">Symfony</span>
-          </div>
-          <div class="skill-item">
-            <i class="fab fa-java skill-icon skill-java"></i>
-            <span class="skill-name">Java</span>
+          <div class="language-item">
+            <div class="language-flag">
+              <i class="fas fa-globe"></i>
+            </div>
+            <div class="language-info">
+              <h3 class="language-name" data-translate="languages.english.name">
+                English
+              </h3>
+              <span
+                class="language-level"
+                data-translate="languages.english.level"
+                >Advanced</span
+              >
+              <div class="language-progress">
+                <div class="language-progress-bar" data-level="85"></div>
+              </div>
+            </div>
           </div>
 
-          <!-- Databases -->
-          <div class="skill-item">
-            <i class="fas fa-database skill-icon skill-mysql"></i>
-            <span class="skill-name">MySQL</span>
-          </div>
-          <div class="skill-item">
-            <i class="fas fa-leaf skill-icon skill-mongodb"></i>
-            <span class="skill-name">MongoDB</span>
-          </div>
-
-          <!-- DevOps & Tools -->
-          <div class="skill-item">
-            <i class="fab fa-docker skill-icon skill-docker"></i>
-            <span class="skill-name">Docker</span>
-          </div>
-          <div class="skill-item">
-            <i class="fab fa-git-alt skill-icon skill-git"></i>
-            <span class="skill-name">Git</span>
+          <div class="language-item">
+            <div class="language-flag">
+              <i class="fas fa-globe"></i>
+            </div>
+            <div class="language-info">
+              <h3 class="language-name" data-translate="languages.french.name">
+                French
+              </h3>
+              <span
+                class="language-level"
+                data-translate="languages.french.level"
+                >Intermediate</span
+              >
+              <div class="language-progress">
+                <div class="language-progress-bar" data-level="70"></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1900,11 +2300,15 @@
             a project in mind, I'd love to hear from you!
           </p>
           <div class="contact-email-section">
-            <span class="contact-label" data-translate="contact.label"
-              >Contact:</span
-            >
+            <i class="fas fa-envelope contact-icon"></i>
             <a href="mailto:daoudi.issamm@gmail.com" class="contact-email"
               >daoudi.issamm@gmail.com</a
+            >
+          </div>
+          <div class="contact-phone-section">
+            <i class="fas fa-phone contact-icon"></i>
+            <a href="tel:+212659414931" class="contact-phone"
+              >+212 6 59 41 49 31</a
             >
           </div>
           <div class="social-links">
@@ -1938,7 +2342,7 @@
     </footer>
 
     <!-- Scroll to Top Button -->
-    <button class="scroll-top" id="scrollTop">
+    <button class="scroll-top" id="scrollTop" aria-label="Scroll to top">
       <i class="fas fa-arrow-up"></i>
     </button>
 
@@ -1949,7 +2353,9 @@
           "nav.about": "About",
           "nav.experience": "Experience",
           "nav.education": "Education",
+          "nav.certificates": "Certificates",
           "nav.skills": "Skills",
+          "nav.languages": "Languages",
           "nav.projects": "Projects",
           "nav.contact": "Contact",
           "hero.title": "Full-Stack Developer",
@@ -1988,6 +2394,13 @@
             "Created an interactive user interface with React.js for data visualization",
           "experience.job2.desc4":
             "Managed version control with Git/GitHub and the development environment with Docker",
+          "experience.job3.title": "Desktop Application Developer Intern",
+          "experience.job3.company": "TOUIRS SARL",
+          "experience.job3.duration": "2023",
+          "experience.job3.desc1":
+            "Developed a desktop application for the company's human resources management",
+          "experience.job3.desc2":
+            "Implemented CRUD functionalities and salary calculation features using ADO.NET and SQLServer",
           "education.title": "Education",
           "skills.title": "Skills",
           "education.degree1.title": "Bachelor's Degree in Computer Science",
@@ -2019,6 +2432,19 @@
           "education.degree5.title": "Baccalaureate in Physical Sciences",
           "education.degree5.institution": "Rahali El Farouk High School",
           "education.degree5.duration": "2018",
+          "certificates.title": "Certificates",
+          "certificates.cert1.title":
+            "HTML, CSS, and Javascript for Web Developers",
+          "certificates.cert1.issuer": "Johns Hopkins University (Coursera)",
+          "certificates.cert1.date": "September 2025",
+          "certificates.viewCertificate": "View Certificate",
+          "languages.title": "Languages",
+          "languages.arabic.name": "Arabic",
+          "languages.arabic.level": "Native",
+          "languages.english.name": "English",
+          "languages.english.level": "Advanced",
+          "languages.french.name": "French",
+          "languages.french.level": "Intermediate",
           "projects.title": "Projects",
           "projects.project1.title": "Pallet Management Application",
           "projects.project1.desc":
@@ -2026,22 +2452,26 @@
           "projects.project2.title": "Accounting Application",
           "projects.project2.desc":
             "A robust financial management system built during my training at MIT. Features transaction management, financial reporting, data visualization, and secure API endpoints for financial operations.",
-          "projects.project3.title": "Online Food Ordering System",
+          "projects.project3.title": "Online Food Ordering Platform",
           "projects.project3.desc":
             "A complete e-commerce platform for food delivery with user authentication, menu management, shopping cart, order tracking, and payment integration. Features admin panel for restaurant management.",
           "projects.project4.title": "Portfolio Website",
           "projects.project4.desc":
             "A modern, responsive portfolio website with dark/light mode toggle, smooth animations, and optimized performance. Built to showcase projects and professional experience.",
+          "projects.project5.title": "HR Management Desktop Application",
+          "projects.project5.desc":
+            "Developed as my internship project for TOUIRS SARL, this application was built to modernize the company's HR and payroll processes as part of my Specialized Technician Diploma from ISTA NTIC SYBA. Technologies: ADO.NET, SQLServer",
           "contact.title": "Let's Work Together",
           "contact.text":
             "I'm always interested in new opportunities and exciting projects. Whether you're looking for a developer to join your team or you have a project in mind, I'd love to hear from you!",
-          "contact.label": "Contact:",
         },
         fr: {
           "nav.about": "À Propos",
           "nav.experience": "Expérience",
           "nav.education": "Éducation",
+          "nav.certificates": "Certificats",
           "nav.skills": "Compétences",
+          "nav.languages": "Langues",
           "nav.projects": "Projets",
           "nav.contact": "Contact",
           "hero.title": "Développeur Full-Stack",
@@ -2081,6 +2511,13 @@
             "Création d'une interface utilisateur interactive avec React.js pour la visualisation des données",
           "experience.job2.desc4":
             "Gestion du contrôle de version avec Git/GitHub et de l'environnement de développement avec Docker",
+          "experience.job3.title": "Stagiaire Développeur Desktop",
+          "experience.job3.company": "TOUIRS SARL",
+          "experience.job3.duration": "2023",
+          "experience.job3.desc1":
+            "Création d'une application desktop pour la gestion des ressources humaines de l'entreprise",
+          "experience.job3.desc2":
+            "Implémentation des opérations CRUD et du calcul des salaires en utilisant ADO.NET et SQLServer",
           "education.title": "Éducation",
           "skills.title": "Compétences",
           "education.degree1.title": "Licence en Informatique",
@@ -2112,6 +2549,19 @@
           "education.degree5.title": "Baccalauréat en Sciences Physiques",
           "education.degree5.institution": "Lycée Rahali El Farouk",
           "education.degree5.duration": "2018",
+          "certificates.title": "Certificats",
+          "certificates.cert1.title":
+            "HTML, CSS, et Javascript pour Développeurs Web",
+          "certificates.cert1.issuer": "Université Johns Hopkins (Coursera)",
+          "certificates.cert1.date": "Septembre 2025",
+          "certificates.viewCertificate": "Voir le Certificat",
+          "languages.title": "Langues",
+          "languages.arabic.name": "Arabe",
+          "languages.arabic.level": "Langue Maternelle",
+          "languages.english.name": "Anglais",
+          "languages.english.level": "Avancé",
+          "languages.french.name": "Français",
+          "languages.french.level": "Intermédiaire",
           "projects.title": "Projets",
           "projects.project1.title": "Application de Gestion de Palettes",
           "projects.project1.desc":
@@ -2120,16 +2570,18 @@
           "projects.project2.desc":
             "Un système de gestion financière robuste construit pendant ma formation au MIT. Comprend la gestion des transactions, le reporting financier, la visualisation des données, et des points de terminaison API sécurisés pour les opérations financières.",
           "projects.project3.title":
-            "Système de Commande de Nourriture en Ligne",
+            "Plateforme de Commande de Nourriture en Ligne",
           "projects.project3.desc":
             "Une plateforme e-commerce complète pour la livraison de nourriture avec authentification utilisateur, gestion de menu, panier d'achat, suivi de commandes, et intégration de paiement. Comprend un panneau d'administration pour la gestion de restaurant.",
           "projects.project4.title": "Site Web Portfolio",
           "projects.project4.desc":
             "Un site web portfolio moderne et responsive avec basculement mode sombre/clair, animations fluides, et performance optimisée. Construit pour présenter les projets et l'expérience professionnelle.",
+          "projects.project5.title": "Application Desktop de Gestion RH",
+          "projects.project5.desc":
+            "Développé dans le cadre de mon stage chez TOUIRS SARL, cette application a été conçue pour moderniser les processus RH et de paie de l'entreprise dans le cadre de mon Diplôme de Technicien Spécialisé de l'ISTA NTIC SYBA. Technologies : ADO.NET, SQLServer",
           "contact.title": "Travaillons Ensemble ?",
           "contact.text":
             "Toujours à la recherche de nouvelles opportunités et de projets passionnants, je serais ravi de mettre mes compétences à votre service. Si vous cherchez un développeur pour rejoindre votre équipe ou si vous avez un projet à réaliser, n'hésitez pas à me contacter !",
-          "contact.label": "Contact:",
         },
       };
 
@@ -2320,6 +2772,21 @@
         observer.observe(el);
       });
 
+      // Observe certificate cards for animation
+      document.querySelectorAll(".certificate-card").forEach((el) => {
+        observer.observe(el);
+      });
+
+      // Observe language items for animation
+      document.querySelectorAll(".language-item").forEach((el) => {
+        observer.observe(el);
+      });
+
+      // Observe language items for animation
+      document.querySelectorAll(".language-item").forEach((el) => {
+        observer.observe(el);
+      });
+
       // Scroll to Top Button
       const scrollTopBtn = document.getElementById("scrollTop");
 
@@ -2338,15 +2805,13 @@
         });
       });
 
-      // Navbar background on scroll
+      // Navbar background on scroll with glassmorphism effect
       window.addEventListener("scroll", () => {
         const navbar = document.querySelector(".navbar");
         if (window.scrollY > 50) {
-          navbar.style.background = "var(--navbar-bg)";
-          navbar.style.boxShadow = "var(--shadow)";
+          navbar.classList.add("scrolled");
         } else {
-          navbar.style.background = "var(--navbar-bg)";
-          navbar.style.boxShadow = "none";
+          navbar.classList.remove("scrolled");
         }
       });
 
