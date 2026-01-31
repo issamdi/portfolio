@@ -20,12 +20,14 @@
         --text-color: #212529;
         --secondary-text: #6c757d;
         --accent-color: #007bff;
+        --accent-gradient: linear-gradient(135deg, #007bff, #6f42c1);
         --card-bg: #f8f9fa;
         --border-color: #e9ecef;
         --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         --shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.15);
         --navbar-bg: rgba(248, 249, 250, 0.95);
         --bg-rgb: 255, 255, 255;
+        --bg-solid: #ffffff;
       }
 
       [data-theme="dark"] {
@@ -33,12 +35,14 @@
         --text-color: #eaeaea;
         --secondary-text: #b0b0b0;
         --accent-color: #007bff;
+        --accent-gradient: linear-gradient(135deg, #007bff, #6f42c1);
         --card-bg: #1a1a1a;
         --border-color: #333333;
         --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
         --shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.4);
         --navbar-bg: rgba(26, 26, 26, 0.95);
         --bg-rgb: 18, 18, 18;
+        --bg-solid: #121212;
       }
 
       /* Global Styles */
@@ -705,14 +709,6 @@
         margin-bottom: 0.5rem;
       }
 
-      .certificate-description {
-        font-size: 0.9rem;
-        color: var(--secondary-text);
-        line-height: 1.4;
-        margin-bottom: 1rem;
-        text-align: center;
-      }
-
       .certificate-date {
         font-size: 0.9rem;
         color: var(--secondary-text);
@@ -1212,13 +1208,6 @@
         align-items: center;
         margin-bottom: 2rem;
         gap: 0.5rem;
-      }
-
-      .contact-label {
-        font-size: 1.1rem;
-        color: var(--text-color);
-        font-weight: 600;
-        opacity: 0.8;
       }
 
       .contact-email {
@@ -2162,7 +2151,7 @@
 
           <!-- Backend Technologies -->
           <div class="skill-item">
-            <i class="fab fa-node-js skill-icon skill-node"></i>
+            <i class="fab fa-node-js skill-icon skill-nodejs"></i>
             <span class="skill-name">Node.js</span>
           </div>
           <div class="skill-item">
@@ -2497,7 +2486,6 @@
       // Translation data
       const translations = {
         en: {
-          "nav.about": "About",
           "nav.experience": "Experience",
           "nav.education": "Education",
           "nav.certificates": "Certificates",
@@ -2511,13 +2499,6 @@
           "hero.about":
             "Quick learner and collaborative team player, eager to contribute to innovative projects. Experienced in end-to-end development from database design to responsive UI creation.",
           "hero.downloadCV": "View CV",
-          "about.title": "About Me",
-          "about.text1":
-            "Passionate Junior Full-Stack Developer with hands-on experience in building robust web applications. Proficient in back-end (PHP/Laravel) and front-end (React.js) development, gained through a comprehensive internship at Ménara Holding.",
-          "about.text2":
-            "My technical expertise spans across modern web technologies including PHP, Laravel, React.js, Node.js, Symfony, and database management with MySQL and MongoDB. I have successfully delivered end-to-end solutions, from database architecture and REST API development to responsive user interface creation.",
-          "about.text3":
-            "A quick and collaborative learner, I'm eager to contribute to innovative projects and continuously advance my technical skills. Whether working on pallet management systems or accounting applications, I bring dedication to clean code, optimal performance, and delivering high-quality software solutions that make a real impact.",
           "experience.title": "Experience",
           "experience.job1.title": "Full-Stack Developer Intern",
           "experience.job1.company": "Ménara Holding, Marrakech",
@@ -2613,7 +2594,6 @@
             "I'm always interested in new opportunities and exciting projects. Whether you're looking for a developer to join your team or you have a project in mind, I'd love to hear from you!",
         },
         fr: {
-          "nav.about": "À Propos",
           "nav.experience": "Expérience",
           "nav.education": "Éducation",
           "nav.certificates": "Certificats",
@@ -2627,13 +2607,6 @@
             "Je développe des applications web complètes, du front-end au back-end, avec une approche orientée performance, clarté et solutions concrètes.",
           "hero.about": "",
           "hero.downloadCV": "Voir CV",
-          "about.title": "À Propos de Moi",
-          "about.text1":
-            "Développeur Full-Stack Junior passionné avec une expérience pratique dans la création d'applications web robustes. Compétent en développement back-end (PHP/Laravel) et front-end (React.js), acquise grâce à un stage complet chez Ménara Holding.",
-          "about.text2":
-            "Mon expertise technique s'étend aux technologies web modernes incluant PHP, Laravel, React.js, Node.js, Symfony, et la gestion de bases de données avec MySQL et MongoDB. J'ai livré avec succès des solutions complètes, de l'architecture de base de données et développement d'API REST à la création d'interfaces utilisateur responsives.",
-          "about.text3":
-            "Apprenant rapide et collaboratif, je suis désireux de contribuer à des projets innovants et d'améliorer continuellement mes compétences techniques. Que ce soit sur des systèmes de gestion de palettes ou des applications comptables, j'apporte ma dévotion au code propre, aux performances optimales, et à la livraison de solutions logicielles de haute qualité qui ont un impact réel.",
           "experience.title": "Expérience",
           "experience.job1.title": "Stagiaire Développeur Full-Stack",
           "experience.job1.company": "Ménara Holding, Marrakech",
@@ -2785,15 +2758,11 @@
           switch (lang) {
             case "fr":
               cvDownloadBtn.href = "Files/DAOUDI Issam CV.pdf";
-              console.log("CV language set to French: DAOUDI Issam CV.pdf");
               break;
             case "en":
             case "ar":
             default:
               cvDownloadBtn.href = "Files/DAOUDI Issam Resume a.pdf";
-              console.log(
-                "CV language set to English: DAOUDI Issam Resume a.pdf"
-              );
               break;
           }
         }
@@ -3045,7 +3014,6 @@
         const preview = document.getElementById("avatarPreview");
         const backdrop = document.getElementById("avatarBackdrop");
         const closeBtn = document.getElementById("avatarClose");
-        const wrap = document.getElementById("avatarWrap");
         const previewImg = document.getElementById("avatarPreviewImg");
         let lastFocused = null;
 
