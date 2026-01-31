@@ -160,6 +160,10 @@
         color: var(--accent-color);
       }
 
+      .nav-links a.active {
+        color: var(--accent-color);
+      }
+
       .nav-links a::after {
         content: "";
         position: absolute;
@@ -172,6 +176,10 @@
       }
 
       .nav-links a:hover::after {
+        width: 100%;
+      }
+
+      .nav-links a.active::after {
         width: 100%;
       }
 
@@ -333,6 +341,10 @@
         line-height: 1.5;
         opacity: 0.9;
         max-width: 900px;
+      }
+
+      .hero .subtitle {
+        font-weight: 700;
       }
 
       .hero-about p {
@@ -1663,7 +1675,7 @@
     <nav class="navbar">
       <div class="container">
         <div class="nav-content">
-          <a href="#" class="logo">Daoudi Issam</a>
+          <a href="#hero" class="logo">Daoudi Issam</a>
           <ul class="nav-links">
             <li>
               <a href="#projects" data-translate="nav.projects">Projects</a>
@@ -1719,7 +1731,7 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero">
+    <section id="hero" class="hero">
       <div class="container">
         <div class="hero-content">
           <div class="hero-profile">
@@ -2469,7 +2481,10 @@
     <!-- Footer -->
     <footer class="footer">
       <div class="container">
-        <p>&copy; 2026 Daoudi Issam. All rights reserved.</p>
+        <p>
+          &copy; <span id="currentYear"></span> Daoudi Issam. All rights
+          reserved.
+        </p>
       </div>
     </footer>
 
@@ -2606,11 +2621,11 @@
           "nav.languages": "Langues",
           "nav.projects": "Projets",
           "nav.contact": "Contact",
-          "hero.title": "Développeur Full-Stack",
+          "hero.title":
+            "Développeur Full-Stack Junior | React.js, Laravel, MySQL",
           "hero.tagline":
-            "Développeur Full-Stack Junior | React.js, Laravel, JavaScript, PHP",
-          "hero.about":
-            "Développeur Full-Stack avec une première expérience significative dans la création d'applications web complètes et performantes. Mes compétences se concentrent sur le développement front-end avec React.js pour des interfaces utilisateur interactives, et le développement back-end avec PHP/Laravel pour la création d'API RESTful robustes. Mon approche couvre l'intégralité du cycle de développement, de la modélisation de la base de données (MySQL) à l'intégration d'interfaces responsives, en passant par l'application des bonnes pratiques comme le versioning (Git) et les méthodologies Agiles. Doté d'une grande capacité d'apprentissage et d'un fort esprit d'équipe, je cherche à rejoindre une équipe dynamique pour contribuer concrètement au succès de projets innovants.",
+            "Je développe des applications web complètes, du front-end au back-end, avec une approche orientée performance, clarté et solutions concrètes.",
+          "hero.about": "",
           "hero.downloadCV": "Voir CV",
           "about.title": "À Propos de Moi",
           "about.text1":
@@ -2818,6 +2833,12 @@
       // Initialize language on page load
       initializeLanguage();
 
+      // Dynamic footer year
+      const currentYearSpan = document.getElementById("currentYear");
+      if (currentYearSpan) {
+        currentYearSpan.textContent = new Date().getFullYear();
+      }
+
       // Theme Toggle Functionality
       const themeToggle = document.getElementById("themeToggle");
       const themeIcon = document.getElementById("themeIcon");
@@ -2880,6 +2901,35 @@
           }
         });
       });
+
+      // Active nav link highlighting based on scroll position
+      const navLinkAnchors = document.querySelectorAll(
+        ".nav-links a[href^='#']"
+      );
+      const sectionElements = Array.from(
+        document.querySelectorAll("section[id], footer[id]")
+      );
+
+      function updateActiveNavLink() {
+        const scrollPosition = window.scrollY + 120;
+        let activeId = null;
+
+        for (let i = 0; i < sectionElements.length; i += 1) {
+          const section = sectionElements[i];
+          if (section.offsetTop <= scrollPosition) {
+            activeId = section.id;
+          }
+        }
+
+        navLinkAnchors.forEach((link) => {
+          const href = link.getAttribute("href");
+          const isActive = href === `#${activeId}`;
+          link.classList.toggle("active", Boolean(activeId) && isActive);
+        });
+      }
+
+      window.addEventListener("scroll", updateActiveNavLink);
+      window.addEventListener("load", updateActiveNavLink);
 
       // Scroll Animations
       const observerOptions = {
