@@ -51,7 +51,6 @@
           0 4px 10px -6px rgba(0, 0, 0, 0.04);
         --shadow-hover: 0 20px 40px -12px rgba(0, 0, 0, 0.12);
         --shadow-glow: 0 0 20px rgba(59, 130, 246, 0.15);
-        --navbar-bg: rgba(248, 249, 252, 0.7);
         --bg-rgb: 248, 249, 252;
         --bg-solid: #f8f9fc;
         --ease-premium: cubic-bezier(0.4, 0, 0.2, 1);
@@ -81,7 +80,6 @@
           0 8px 25px -5px rgba(0, 0, 0, 0.4), 0 4px 10px -6px rgba(0, 0, 0, 0.3);
         --shadow-hover: 0 20px 40px -12px rgba(0, 0, 0, 0.5);
         --shadow-glow: 0 0 30px rgba(96, 165, 250, 0.12);
-        --navbar-bg: rgba(10, 10, 15, 0.7);
         --bg-rgb: 10, 10, 15;
         --bg-solid: #0a0a0f;
       }
@@ -228,28 +226,15 @@
         transform: translateX(-50%);
         width: calc(100% - 40px);
         max-width: 1400px;
-        background: rgba(var(--bg-rgb), 0.15);
-        backdrop-filter: blur(35px) saturate(1.6) brightness(1.1);
-        -webkit-backdrop-filter: blur(35px) saturate(1.6) brightness(1.1);
         z-index: 1000;
         padding: 1rem 2rem;
         border-radius: 100px;
-        border: 1px solid rgba(255, 255, 255, 0.08);
+        border: none;
         transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        box-shadow:
-          0 4px 30px rgba(0, 0, 0, 0.08),
-          0 8px 16px rgba(0, 0, 0, 0.04);
       }
 
       /* Enhanced glassmorphism on scroll */
       .navbar.scrolled {
-        background: rgba(var(--bg-rgb), 0.25);
-        backdrop-filter: blur(40px) saturate(1.8) brightness(1.15);
-        -webkit-backdrop-filter: blur(40px) saturate(1.8) brightness(1.15);
-        box-shadow:
-          0 8px 40px rgba(0, 0, 0, 0.12),
-          0 4px 12px rgba(0, 0, 0, 0.06);
-        border: 1px solid rgba(255, 255, 255, 0.12);
         top: 15px;
       }
 
@@ -571,19 +556,6 @@
         opacity: 0.85;
       }
 
-      .hero-about {
-        font-size: 0.95rem;
-        color: var(--secondary-text);
-        margin-bottom: 2rem;
-        line-height: 1.7;
-        opacity: 0.8;
-        max-width: 600px;
-      }
-
-      .hero-about p {
-        margin: 0;
-      }
-
       /* Status Badge */
       .status-badge {
         display: inline-flex;
@@ -791,8 +763,6 @@
       .btn-demo i {
         margin-right: 6px;
       }
-
-      /* Removed unused keyframes */
 
       /* Section Styles */
       .section {
@@ -1297,51 +1267,6 @@
       .project-card:hover .project-image i {
         transform: translate(-50%, -50%) scale(1.1);
         color: rgba(255, 255, 255, 1);
-      }
-
-      .project-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(102, 126, 234, 0.9);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        opacity: 0;
-        transition: all 0.3s ease;
-      }
-
-      .project-card:hover .project-overlay {
-        opacity: 1;
-      }
-
-      .project-actions {
-        display: flex;
-        gap: 1rem;
-      }
-
-      .action-btn {
-        width: 50px;
-        height: 50px;
-        background: rgba(255, 255, 255, 0.2);
-        border: 2px solid white;
-        border-radius: 50%;
-        color: white;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-decoration: none;
-        font-size: 1.2rem;
-        transition: all 0.3s ease;
-        backdrop-filter: blur(10px);
-      }
-
-      .action-btn:hover {
-        background: white;
-        color: var(--accent-color);
-        transform: scale(1.1);
       }
 
       .project-content {
@@ -1853,44 +1778,87 @@
         }
       }
 
-      /* Scroll to top button — compact circular with subtle iOS-style rim */
+      /* Scroll to top button — Liquid Glass (iOS 26 style) */
       .scroll-top {
         position: fixed;
         bottom: 30px;
         right: 30px;
-        width: 50px;
-        height: 50px;
-        background: rgba(var(--bg-rgb), 0.18);
+        width: 36px;
+        height: 36px;
+        background: rgba(var(--bg-rgb), 0.03);
         color: var(--text-color);
         border: none;
         border-radius: 50%;
         cursor: pointer;
-        font-size: 1.2rem;
+        font-size: 0.75rem;
         opacity: 0;
         visibility: hidden;
         transition: all 0.28s cubic-bezier(0.2, 0.9, 0.2, 1);
         z-index: 1000;
         display: grid;
         place-items: center;
-        backdrop-filter: blur(20px) saturate(1.35) brightness(1.05);
-        -webkit-backdrop-filter: blur(20px) saturate(1.35) brightness(1.05);
+        backdrop-filter: blur(6px) saturate(1.4) brightness(1.05);
+        -webkit-backdrop-filter: blur(6px) saturate(1.4) brightness(1.05);
         box-shadow:
-          0 8px 26px rgba(0, 0, 0, 0.1),
-          inset 0 1px 0 rgba(255, 255, 255, 0.03);
-        /* outer faint stroke to define the glass edge */
-        border: 1px solid rgba(255, 255, 255, 0.06);
+          0 0 16px rgba(255, 255, 255, 0.12),
+          0 0 5px rgba(255, 255, 255, 0.08),
+          0 8px 26px rgba(0, 0, 0, 0.06);
       }
 
-      /* inner glossy rim to emulate iOS glass buttons */
+      /* Liquid border ring — thick flowing glass edge with chromatic tint */
+      .scroll-top::before {
+        content: "";
+        position: absolute;
+        inset: -1.5px;
+        border-radius: 50%;
+        padding: 2.5px;
+        background: conic-gradient(
+          from 180deg at 50% 30%,
+          rgba(255, 255, 255, 0.7) 0deg,
+          rgba(200, 220, 255, 0.55) 30deg,
+          rgba(255, 255, 255, 0.35) 60deg,
+          rgba(200, 210, 255, 0.15) 110deg,
+          rgba(255, 255, 255, 0.06) 150deg,
+          rgba(255, 255, 255, 0.03) 180deg,
+          rgba(255, 255, 255, 0.06) 210deg,
+          rgba(210, 200, 255, 0.15) 250deg,
+          rgba(255, 255, 255, 0.35) 300deg,
+          rgba(200, 220, 255, 0.55) 330deg,
+          rgba(255, 255, 255, 0.7) 360deg
+        );
+        -webkit-mask:
+          linear-gradient(#fff 0 0) content-box,
+          linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask:
+          linear-gradient(#fff 0 0) content-box,
+          linear-gradient(#fff 0 0);
+        mask-composite: exclude;
+        pointer-events: none;
+        filter: blur(0.5px);
+        transition:
+          padding 0.3s ease,
+          filter 0.3s ease;
+      }
+
+      /* Inner edge bloom — light bleeding inward from glass rim */
       .scroll-top::after {
         content: "";
         position: absolute;
-        inset: 1px;
+        inset: 0;
         border-radius: 50%;
         pointer-events: none;
         box-shadow:
-          inset 0 1px 0 rgba(255, 255, 255, 0.22),
-          inset 0 -6px 12px rgba(255, 255, 255, 0.02);
+          inset 0 2px 6px rgba(255, 255, 255, 0.3),
+          inset 0 -1px 4px rgba(255, 255, 255, 0.06),
+          inset 2px 0 6px rgba(255, 255, 255, 0.06),
+          inset -2px 0 6px rgba(255, 255, 255, 0.06),
+          inset 0 0 20px rgba(255, 255, 255, 0.04);
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.08) 0%,
+          transparent 30%
+        );
       }
 
       .scroll-top.visible {
@@ -1901,7 +1869,15 @@
 
       .scroll-top:hover {
         transform: translateY(-4px);
-        box-shadow: 0 14px 36px rgba(0, 0, 0, 0.16);
+        box-shadow:
+          0 0 22px rgba(255, 255, 255, 0.18),
+          0 0 8px rgba(255, 255, 255, 0.12),
+          0 14px 40px rgba(0, 0, 0, 0.08);
+      }
+
+      .scroll-top:hover::before {
+        padding: 3px;
+        filter: blur(0.8px);
       }
 
       /* Support for browsers without backdrop-filter */
@@ -1911,13 +1887,44 @@
         }
       }
 
-      /* Dark theme override: use dark translucent base and lighter border */
+      /* Dark theme liquid glass */
       [data-theme="dark"] .scroll-top {
-        background: rgba(18, 18, 18, 0.16);
-        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.02);
         box-shadow:
-          0 12px 36px rgba(0, 0, 0, 0.24),
-          inset 0 2px 6px rgba(255, 255, 255, 0.04);
+          0 0 18px rgba(255, 255, 255, 0.06),
+          0 0 5px rgba(255, 255, 255, 0.04),
+          0 8px 32px rgba(0, 0, 0, 0.3);
+      }
+
+      [data-theme="dark"] .scroll-top::before {
+        background: conic-gradient(
+          from 180deg at 50% 30%,
+          rgba(255, 255, 255, 0.4) 0deg,
+          rgba(180, 200, 255, 0.3) 30deg,
+          rgba(255, 255, 255, 0.18) 60deg,
+          rgba(180, 190, 255, 0.08) 110deg,
+          rgba(255, 255, 255, 0.03) 150deg,
+          rgba(255, 255, 255, 0.015) 180deg,
+          rgba(255, 255, 255, 0.03) 210deg,
+          rgba(190, 180, 255, 0.08) 250deg,
+          rgba(255, 255, 255, 0.18) 300deg,
+          rgba(180, 200, 255, 0.3) 330deg,
+          rgba(255, 255, 255, 0.4) 360deg
+        );
+      }
+
+      [data-theme="dark"] .scroll-top::after {
+        box-shadow:
+          inset 0 2px 5px rgba(255, 255, 255, 0.12),
+          inset 0 -1px 3px rgba(255, 255, 255, 0.03),
+          inset 2px 0 5px rgba(255, 255, 255, 0.03),
+          inset -2px 0 5px rgba(255, 255, 255, 0.03),
+          inset 0 0 15px rgba(255, 255, 255, 0.015);
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.05) 0%,
+          transparent 25%
+        );
       }
 
       /* RTL Support for Arabic */
@@ -1987,6 +1994,10 @@
           right: 20px;
           left: auto;
         }
+      }
+
+      body.modal-open {
+        overflow: hidden;
       }
 
       /* Avatar preview modal (global) - ensure centered on all screen sizes */
@@ -2101,40 +2112,72 @@
          Infinite fade overlays + enhanced navbar
          ============================================= */
 
-      /* --- Enhanced Floating Glass Navbar --- */
+      /* --- Liquid Glass Navbar (iOS 26 style) --- */
       .navbar {
-        background: rgba(var(--bg-rgb), 0.18);
-        backdrop-filter: blur(20px) saturate(1.35) brightness(1.05);
-        -webkit-backdrop-filter: blur(20px) saturate(1.35) brightness(1.05);
-        border: 1px solid rgba(255, 255, 255, 0.06);
+        background: rgba(var(--bg-rgb), 0.03);
+        backdrop-filter: blur(6px) saturate(1.4) brightness(1.05);
+        -webkit-backdrop-filter: blur(6px) saturate(1.4) brightness(1.05);
+        border: none;
         box-shadow:
-          0 8px 26px rgba(0, 0, 0, 0.1),
-          inset 0 1px 0 rgba(255, 255, 255, 0.03);
+          0 0 18px rgba(255, 255, 255, 0.12),
+          0 0 6px rgba(255, 255, 255, 0.08),
+          0 8px 32px rgba(0, 0, 0, 0.06);
       }
 
-      /* inner glossy rim to emulate iOS glass buttons */
-      .navbar::after {
+      /* Liquid border ring — thick flowing glass edge with chromatic tint */
+      .navbar::before {
         content: "";
         position: absolute;
-        inset: 1px;
+        inset: -1.5px;
         border-radius: inherit;
+        padding: 2.5px;
+        background: conic-gradient(
+          from 180deg at 50% 30%,
+          rgba(255, 255, 255, 0.7) 0deg,
+          rgba(200, 220, 255, 0.55) 30deg,
+          rgba(255, 255, 255, 0.35) 60deg,
+          rgba(200, 210, 255, 0.15) 110deg,
+          rgba(255, 255, 255, 0.06) 150deg,
+          rgba(255, 255, 255, 0.03) 180deg,
+          rgba(255, 255, 255, 0.06) 210deg,
+          rgba(210, 200, 255, 0.15) 250deg,
+          rgba(255, 255, 255, 0.35) 300deg,
+          rgba(200, 220, 255, 0.55) 330deg,
+          rgba(255, 255, 255, 0.7) 360deg
+        );
+        -webkit-mask:
+          linear-gradient(#fff 0 0) content-box,
+          linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask:
+          linear-gradient(#fff 0 0) content-box,
+          linear-gradient(#fff 0 0);
+        mask-composite: exclude;
         pointer-events: none;
-        box-shadow:
-          inset 0 1px 0 rgba(255, 255, 255, 0.22),
-          inset 0 -6px 12px rgba(255, 255, 255, 0.02);
         z-index: 0;
+        filter: blur(0.5px);
+        transition:
+          padding 0.3s ease,
+          filter 0.3s ease;
       }
 
-      .navbar::before {
+      /* Inner edge bloom — light bleeding inward from glass rim */
+      .navbar::after {
         content: "";
         position: absolute;
         inset: 0;
         border-radius: inherit;
         pointer-events: none;
+        box-shadow:
+          inset 0 2px 6px rgba(255, 255, 255, 0.25),
+          inset 0 -1px 4px rgba(255, 255, 255, 0.06),
+          inset 2px 0 6px rgba(255, 255, 255, 0.06),
+          inset -2px 0 6px rgba(255, 255, 255, 0.06),
+          inset 0 0 30px rgba(255, 255, 255, 0.03);
         background: linear-gradient(
           180deg,
           rgba(255, 255, 255, 0.06) 0%,
-          transparent 50%
+          transparent 25%
         );
         z-index: 0;
       }
@@ -2145,38 +2188,84 @@
       }
 
       .navbar.scrolled {
-        background: rgba(var(--bg-rgb), 0.25);
-        backdrop-filter: blur(24px) saturate(1.45) brightness(1.08);
-        -webkit-backdrop-filter: blur(24px) saturate(1.45) brightness(1.08);
-        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(var(--bg-rgb), 0.06);
+        backdrop-filter: blur(10px) saturate(1.5) brightness(1.06);
+        -webkit-backdrop-filter: blur(10px) saturate(1.5) brightness(1.06);
         box-shadow:
-          0 12px 36px rgba(0, 0, 0, 0.14),
-          inset 0 1px 0 rgba(255, 255, 255, 0.04);
+          0 0 24px rgba(255, 255, 255, 0.15),
+          0 0 8px rgba(255, 255, 255, 0.1),
+          0 12px 40px rgba(0, 0, 0, 0.08);
       }
 
-      /* Dark mode navbar tuning */
+      .navbar.scrolled::before {
+        padding: 3px;
+        filter: blur(0.8px);
+      }
+
+      /* Dark mode liquid glass */
       [data-theme="dark"] .navbar {
-        background: rgba(18, 18, 18, 0.16);
-        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.02);
         box-shadow:
-          0 12px 36px rgba(0, 0, 0, 0.24),
-          inset 0 2px 6px rgba(255, 255, 255, 0.04);
+          0 0 20px rgba(255, 255, 255, 0.06),
+          0 0 6px rgba(255, 255, 255, 0.04),
+          0 8px 32px rgba(0, 0, 0, 0.3);
       }
 
       [data-theme="dark"] .navbar::before {
+        background: conic-gradient(
+          from 180deg at 50% 30%,
+          rgba(255, 255, 255, 0.4) 0deg,
+          rgba(180, 200, 255, 0.3) 30deg,
+          rgba(255, 255, 255, 0.18) 60deg,
+          rgba(180, 190, 255, 0.08) 110deg,
+          rgba(255, 255, 255, 0.03) 150deg,
+          rgba(255, 255, 255, 0.015) 180deg,
+          rgba(255, 255, 255, 0.03) 210deg,
+          rgba(190, 180, 255, 0.08) 250deg,
+          rgba(255, 255, 255, 0.18) 300deg,
+          rgba(180, 200, 255, 0.3) 330deg,
+          rgba(255, 255, 255, 0.4) 360deg
+        );
+      }
+
+      [data-theme="dark"] .navbar::after {
+        box-shadow:
+          inset 0 2px 5px rgba(255, 255, 255, 0.12),
+          inset 0 -1px 3px rgba(255, 255, 255, 0.03),
+          inset 2px 0 5px rgba(255, 255, 255, 0.03),
+          inset -2px 0 5px rgba(255, 255, 255, 0.03),
+          inset 0 0 24px rgba(255, 255, 255, 0.015);
         background: linear-gradient(
           180deg,
-          rgba(255, 255, 255, 0.03) 0%,
-          transparent 50%
+          rgba(255, 255, 255, 0.04) 0%,
+          transparent 25%
         );
       }
 
       [data-theme="dark"] .navbar.scrolled {
-        background: rgba(18, 18, 18, 0.22);
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.035);
         box-shadow:
-          0 14px 40px rgba(0, 0, 0, 0.32),
-          inset 0 2px 6px rgba(255, 255, 255, 0.05);
+          0 0 28px rgba(255, 255, 255, 0.08),
+          0 0 8px rgba(255, 255, 255, 0.05),
+          0 12px 40px rgba(0, 0, 0, 0.4);
+      }
+
+      [data-theme="dark"] .navbar.scrolled::before {
+        padding: 3px;
+        background: conic-gradient(
+          from 180deg at 50% 30%,
+          rgba(255, 255, 255, 0.5) 0deg,
+          rgba(180, 200, 255, 0.38) 30deg,
+          rgba(255, 255, 255, 0.22) 60deg,
+          rgba(180, 190, 255, 0.1) 110deg,
+          rgba(255, 255, 255, 0.04) 150deg,
+          rgba(255, 255, 255, 0.02) 180deg,
+          rgba(255, 255, 255, 0.04) 210deg,
+          rgba(190, 180, 255, 0.1) 250deg,
+          rgba(255, 255, 255, 0.22) 300deg,
+          rgba(180, 200, 255, 0.38) 330deg,
+          rgba(255, 255, 255, 0.5) 360deg
+        );
       }
 
       /* --- Infinite Top Edge Fade --- */
@@ -2476,11 +2565,6 @@
           <div class="project-card">
             <div class="project-image">
               <i class="fas fa-pallet"></i>
-              <div class="project-overlay">
-                <div class="project-actions">
-                  <!-- demo and details buttons removed (not in use) -->
-                </div>
-              </div>
             </div>
             <div class="project-content">
               <h3
@@ -3658,8 +3742,8 @@
         });
       }, observerOptions);
 
-      // Observe all sections and project cards
-      document.querySelectorAll(".section, .project-card").forEach((el) => {
+      // Observe all sections
+      document.querySelectorAll(".section").forEach((el) => {
         observer.observe(el);
       });
 
@@ -3742,11 +3826,6 @@
           glow.style.opacity = "1";
         });
       })();
-
-      // Add loading animation
-      window.addEventListener("load", () => {
-        document.body.classList.add("loaded");
-      });
 
       // Typing effect for hero tagline (optional enhancement)
       function typeWriter(element, text, speed = 50) {
@@ -3855,8 +3934,6 @@
         // closing
         closeBtn.addEventListener("click", closePreview);
         backdrop.addEventListener("click", closePreview);
-
-        // no MutationObserver needed here (cleanup)
 
         // reset transform on image load (useful when swapping hi-res)
         previewImg.addEventListener("load", () => {
