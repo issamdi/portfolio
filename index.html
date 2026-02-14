@@ -377,6 +377,15 @@
         z-index: -1;
       }
 
+      /* Reverse transition (to dark): old view on top shrinks away */
+      .theme-reverse-transition::view-transition-old(root) {
+        z-index: 9999;
+      }
+
+      .theme-reverse-transition::view-transition-new(root) {
+        z-index: -1;
+      }
+
       /* Language Toggle */
       .language-toggle {
         position: relative;
@@ -3600,6 +3609,13 @@
           Math.max(y, window.innerHeight - y),
         );
 
+        // Going to dark = reverse (old light shrinks to button)
+        const isDarkTransition = newTheme === "dark";
+
+        if (isDarkTransition) {
+          document.documentElement.classList.add("theme-reverse-transition");
+        }
+
         if (document.startViewTransition) {
           const transition = document.startViewTransition(() => {
             // Kill all CSS transitions so theme swap is instant (no stutter)
@@ -3610,44 +3626,83 @@
           });
 
           transition.ready.then(() => {
-            // Animate the NEW theme expanding outward from the button
-            // Starts small and slow near the button, then accelerates gracefully
-            const anim = document.documentElement.animate(
-              [
-                { clipPath: `circle(0px at ${x}px ${y}px)`, offset: 0 },
+            if (isDarkTransition) {
+              // Reverse: old (light) view shrinks from full screen into the button
+              const anim = document.documentElement.animate(
+                [
+                  {
+                    clipPath: `circle(${maxDist}px at ${x}px ${y}px)`,
+                    offset: 0,
+                  },
+                  {
+                    clipPath: `circle(${maxDist * 0.55}px at ${x}px ${y}px)`,
+                    offset: 0.4,
+                  },
+                  {
+                    clipPath: `circle(${maxDist * 0.2}px at ${x}px ${y}px)`,
+                    offset: 0.65,
+                  },
+                  {
+                    clipPath: `circle(${maxDist * 0.05}px at ${x}px ${y}px)`,
+                    offset: 0.85,
+                  },
+                  { clipPath: `circle(0px at ${x}px ${y}px)`, offset: 1 },
+                ],
                 {
-                  clipPath: `circle(${maxDist * 0.05}px at ${x}px ${y}px)`,
-                  offset: 0.15,
+                  duration: 900,
+                  easing: "cubic-bezier(0.4, 0, 0.2, 1)",
+                  pseudoElement: "::view-transition-old(root)",
+                  fill: "forwards",
                 },
-                {
-                  clipPath: `circle(${maxDist * 0.2}px at ${x}px ${y}px)`,
-                  offset: 0.35,
-                },
-                {
-                  clipPath: `circle(${maxDist * 0.55}px at ${x}px ${y}px)`,
-                  offset: 0.6,
-                },
-                {
-                  clipPath: `circle(${maxDist}px at ${x}px ${y}px)`,
-                  offset: 1,
-                },
-              ],
-              {
-                duration: 900,
-                easing: "cubic-bezier(0.4, 0, 0.2, 1)",
-                pseudoElement: "::view-transition-new(root)",
-                fill: "forwards",
-              },
-            );
+              );
 
-            // Only re-enable CSS transitions after clip animation fully completes
-            anim.finished.then(() => {
-              document.documentElement.classList.remove("theme-switching");
-            });
+              anim.finished.then(() => {
+                document.documentElement.classList.remove("theme-switching");
+                document.documentElement.classList.remove(
+                  "theme-reverse-transition",
+                );
+              });
+            } else {
+              // Forward: new (light) view expands outward from the button
+              const anim = document.documentElement.animate(
+                [
+                  { clipPath: `circle(0px at ${x}px ${y}px)`, offset: 0 },
+                  {
+                    clipPath: `circle(${maxDist * 0.05}px at ${x}px ${y}px)`,
+                    offset: 0.15,
+                  },
+                  {
+                    clipPath: `circle(${maxDist * 0.2}px at ${x}px ${y}px)`,
+                    offset: 0.35,
+                  },
+                  {
+                    clipPath: `circle(${maxDist * 0.55}px at ${x}px ${y}px)`,
+                    offset: 0.6,
+                  },
+                  {
+                    clipPath: `circle(${maxDist}px at ${x}px ${y}px)`,
+                    offset: 1,
+                  },
+                ],
+                {
+                  duration: 900,
+                  easing: "cubic-bezier(0.4, 0, 0.2, 1)",
+                  pseudoElement: "::view-transition-new(root)",
+                  fill: "forwards",
+                },
+              );
+
+              anim.finished.then(() => {
+                document.documentElement.classList.remove("theme-switching");
+              });
+            }
           });
 
           transition.finished.then(() => {
             document.documentElement.classList.remove("theme-switching");
+            document.documentElement.classList.remove(
+              "theme-reverse-transition",
+            );
             themeTransitioning = false;
           });
         } else {
