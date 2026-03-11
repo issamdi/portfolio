@@ -3471,6 +3471,7 @@
           "contact.title": "Let's Work Together",
           "contact.text":
             "I'm always interested in new opportunities and exciting projects. Whether you're looking for a developer to join your team or you have a project in mind, I'd love to hear from you!",
+          languageChanged: "Language changed to English",
         },
         fr: {
           "nav.experience": "Expérience",
@@ -3584,8 +3585,32 @@
           "contact.title": "Travaillons Ensemble ?",
           "contact.text":
             "Toujours à la recherche de nouvelles opportunités et de projets passionnants, je serais ravi de mettre mes compétences à votre service. Si vous cherchez un développeur pour rejoindre votre équipe ou si vous avez un projet à réaliser, n'hésitez pas à me contacter !",
+          languageChanged: "Language changed to French",
         },
       };
+
+      // Slide-in notification for language changes
+      function showNotification(message) {
+        const notification = document.createElement("div");
+        notification.className = "notification";
+        notification.textContent = message;
+        notification.style.cssText = `
+          position: fixed; top: 20px; right: 20px;
+          background: var(--accent-color); color: white;
+          padding: 15px 20px; border-radius: 8px;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+          z-index: 10000; font-family: 'Inter', sans-serif;
+          font-weight: 500; font-size: 0.9rem;
+          transform: translateX(calc(100% + 40px));
+          transition: transform 0.3s ease;
+        `;
+        document.body.appendChild(notification);
+        setTimeout(() => (notification.style.transform = "translateX(0)"), 100);
+        setTimeout(() => {
+          notification.style.transform = "translateX(calc(100% + 40px))";
+          setTimeout(() => notification.remove(), 300);
+        }, 3000);
+      }
 
       // Language Toggle Functionality
       const languageBtn = document.getElementById("languageBtn");
@@ -3691,6 +3716,9 @@
           // Update display and translate
           updateLanguageDisplay();
           translatePage(currentLang);
+
+          // Show notification
+          showNotification(translations[currentLang].languageChanged);
 
           // Close dropdown
           languageDropdown.classList.remove("active");
